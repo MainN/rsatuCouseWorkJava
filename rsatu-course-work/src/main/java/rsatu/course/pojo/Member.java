@@ -21,7 +21,6 @@ public class Member {
     private Long id;
 
     //    Дата рождения
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @Column
     private Date birthDate;
 

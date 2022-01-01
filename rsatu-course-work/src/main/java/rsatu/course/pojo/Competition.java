@@ -55,6 +55,24 @@ public class Competition {
     )
     private List<Member> members = new ArrayList<>();
 
+    //  список используемых наживок
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(name = "competition_lure",
+            joinColumns = @JoinColumn(name = "competition_id"),
+            inverseJoinColumns = @JoinColumn(name = "lure_id")
+    )
+    private List<Member> lures = new ArrayList<>();
+
+    //  озеро, где проходит соревнование
+    @ManyToOne
+    @JoinColumn(name = "lake_id")
+    private Lake lake;
+
+    // Дата завершения соревнования
+    @Column
+    private Date endDate;
+
+
     public Date getStartDate() {
         return startDate;
     }
@@ -125,5 +143,29 @@ public class Competition {
 
     public Long getId() {
         return id;
+    }
+
+    public List<Member> getLures() {
+        return lures;
+    }
+
+    public void setLures(List<Member> lures) {
+        this.lures = lures;
+    }
+
+    public Lake getLake() {
+        return lake;
+    }
+
+    public void setLake(Lake lake) {
+        this.lake = lake;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 }

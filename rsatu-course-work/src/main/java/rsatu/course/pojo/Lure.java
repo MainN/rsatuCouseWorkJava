@@ -1,6 +1,8 @@
 package rsatu.course.pojo;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Сущность Наживка
@@ -21,6 +23,10 @@ public class Lure {
     //Глубина действия наживки
     @Column
     private Double depth;
+
+    //  Список соревнований, где используется наживка
+    @ManyToMany(mappedBy = "lures")
+    private List<Competition> competitions = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -44,5 +50,13 @@ public class Lure {
 
     public Long getId() {
         return id;
+    }
+
+    public List<Competition> getCompetitions() {
+        return competitions;
+    }
+
+    public void setCompetitions(List<Competition> competitions) {
+        this.competitions = competitions;
     }
 }
