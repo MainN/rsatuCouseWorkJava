@@ -1,4 +1,4 @@
-package rsatu.course.utils;
+package rsatu.course.enums;
 
 public enum Role {
     MEMBER,

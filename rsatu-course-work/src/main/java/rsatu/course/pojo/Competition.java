@@ -1,6 +1,6 @@
 package rsatu.course.pojo;
 
-import rsatu.course.utils.Type;
+import rsatu.course.enums.Type;
 
 import javax.persistence.*;
 import java.util.ArrayList;

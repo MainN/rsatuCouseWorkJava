@@ -1,7 +1,6 @@
 package rsatu.course.pojo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import rsatu.course.utils.Role;
+import rsatu.course.enums.Role;
 
 import javax.persistence.*;
 import java.util.ArrayList;
