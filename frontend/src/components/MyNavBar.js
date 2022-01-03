@@ -1,32 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Form, Button, Dropdown,Figure} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import ModalCompetitionCreate from './ModalCompetitionCreate'
+import ProfileModal from './ProfileModal'
+import ModularHandBook from './ModularHandBook'
 export default function MyNavBar() {
+  const [show, setShow] = useState(false);
 
-  return <nav class="navbar navbar-dark bg-success">
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  return <nav class="navbar navbar-light bg-white">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#"><img src="https://www.pinclipart.com/picdir/big/44-448226_file-home-icon-svg-wikimedia-commons-free-train.png" alt="" width="120" height="120" class="d-inline-block align-text-top"></img></a>
+    <a class="navbar-brand" href="/"><img src="https://www.pinclipart.com/picdir/big/44-448226_file-home-icon-svg-wikimedia-commons-free-train.png" alt="" width="40" height="40" class="d-inline-block align-text-top"></img></a>
+    <ModularHandBook/>
     <a class="search-brand" href="#">
     <form class="d-flex">
       <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"></input>
-      <input type="image" src="https://www.freeiconspng.com/uploads/search-icon-png-21.png" alt="" width="84" height="86" />
+      <input type="image" src="https://www.freeiconspng.com/uploads/search-icon-png-21.png" alt="" width="40" height="40" />
     </form>
 
     </a>
-    <a class="search-brand" href="#"><img src="https://pic.onlinewebfonts.com/svg/img_360305.png" alt="" width="84" height="86" class="d-inline-block align-text-top"></img></a>
 
+
+
+     { setShow ? <ModalCompetitionCreate/> : null }
     Вася Пупкин
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 
-    <img src="http://cdn.onlinewebfonts.com/svg/download_415638.png" alt="" width="84" height="86" class="d-inline-block align-text-top">
-    </img>
-    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-           <li><a class="dropdown-item" href="#">Профиль</a></li>
-           <li><a class="dropdown-item" href="#">Выход</a></li>
 
-         </ul>
-    </a>
+
+    <ProfileModal/>
 
 
 
