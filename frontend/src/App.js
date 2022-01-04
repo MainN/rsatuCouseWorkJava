@@ -8,29 +8,13 @@ import { Modal, Form, Button, Dropdown } from 'react-bootstrap';
 import CompetitionsTable from './components/CompetitionsTable'
 import MyNavBar from './components/MyNavBar'
 class App extends Component {
-  state = {
-    data: [],
-  }
-
-
-  async componentDidMount() {
-    const response = await fetch('/fish/get')
-    const data = await response.json()
-    console.log(data)
-    this.setState({
-      data
-    })
-  }
 
   render() {
     return (
-
       <div className="container">
         <MyNavBar/>
-        <CompetitionsTable data={this.state.data} />
-        
+        <CompetitionsTable />      
       </div>
-
     );
   }
 }

@@ -1,5 +1,6 @@
 package rsatu.course.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import rsatu.course.enums.Type;
@@ -17,6 +18,7 @@ import java.util.List;
 public class Competition extends PanacheEntity {
 
     //  дата начала соревнования
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     public Date startDate;
 
     //  максимальное количество членов клуба, которое может принять участие в соревновании
@@ -35,11 +37,11 @@ public class Competition extends PanacheEntity {
     public Boolean isCompleted;
 
     // Дата завершения соревнования
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     public Date endDate;
 
     //  список участников соревнования
-    @ManyToMany
-    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "competition_member",
             joinColumns = @JoinColumn(name = "competition_id"),
             inverseJoinColumns = @JoinColumn(name = "member_id")
