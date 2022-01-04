@@ -1,82 +1,52 @@
 package rsatu.course.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
 @Table(name = "lake")
-public class Lake {
-    //    Уникальный идентификатор озера
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
+public class Lake extends PanacheEntity {
     //    Площадь озера
-    @Column
-    private Double area;
+    public Double area;
 
     //    Глубина озера
-    @Column
-    private Double depth;
+    public Double depth;
 
     //    Название озера
-    @Column
-    private String name;
+    public String name;
 
     // список соревнований, проходящих на озере
-    @OneToMany(mappedBy = "lake", cascade = CascadeType.ALL)
-    private List<Competition> competitions = new ArrayList<>();
+    @OneToMany(mappedBy = "lake")
+    @JsonIgnore
+    public Collection<Competition> competitions;
 
     //  список рыб которые обитают в озере
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany
+    @JsonIgnore
     @JoinTable(name = "lake_fish",
             joinColumns = @JoinColumn(name = "lake_id"),
             inverseJoinColumns = @JoinColumn(name = "fish_id")
     )
-    private List<Fish> fishes = new ArrayList<>();
+    public Collection<Fish> fishes;
 
-    public Long getId() {
-        return id;
+    public Lake() {
     }
 
-    public Double getArea() {
-        return area;
+    public static List<Lake> findAllLakes(){
+        return listAll();
     }
 
-    public void setArea(Double area) {
-        this.area = area;
+    public static List<Lake> findLakeById(String id){
+        return findById(id);
     }
 
-    public Double getDepth() {
-        return depth;
-    }
-
-    public void setDepth(Double depth) {
-        this.depth = depth;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Competition> getCompetitions() {
-        return competitions;
-    }
-
-    public void setCompetitions(List<Competition> competitions) {
-        this.competitions = competitions;
-    }
-
-    public List<Fish> getFishes() {
-        return fishes;
-    }
-
-    public void setFishes(List<Fish> fishes) {
-        this.fishes = fishes;
+    public static Lake insertLake(Lake lake) {
+        lake.persist();
+        return lake;
     }
 }

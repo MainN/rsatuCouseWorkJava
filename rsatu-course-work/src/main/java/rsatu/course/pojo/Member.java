@@ -1,9 +1,12 @@
 package rsatu.course.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import rsatu.course.enums.Role;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -12,78 +15,35 @@ import java.util.List;
  */
 @Entity
 @Table(name = "member")
-public class Member {
-
-    //    Уникальный идентификатор пользователя
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Member extends PanacheEntity {
 
     //    Дата рождения
-    @Column
-    private Date birthDate;
+    public Date birthDate;
 
     //    Пол
-    @Column
-    private String sex;
+    public String sex;
+
 
     //    ФИО
-    @Column
-    private String fio;
+    public String fio;
+
 
     //    Роль
-    @Column
-    private Role role;
+    public Role role;
 
     //  Список соревнований пользользователя
     @ManyToMany(mappedBy = "members")
-    private List<Competition> competitions = new ArrayList<>();
+    @JsonIgnore
+    private Collection<Competition> competitions;
 
-    public String getFio() {
-        return fio;
+    public Member() {
     }
 
-    public void setFio(String fio) {
-        this.fio = fio;
+    public static List<Member> findAllMembers(){
+        return listAll();
     }
 
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    public List<Competition> getCompetitions() {
-        return competitions;
-    }
-
-    public void setCompetitions(List<Competition> competitions) {
-        this.competitions = competitions;
+    public static List<Member> findMemberById(String id){
+        return findById(id);
     }
 }

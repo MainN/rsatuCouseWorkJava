@@ -1,7 +1,11 @@
 package rsatu.course.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -9,54 +13,32 @@ import java.util.List;
  */
 @Entity
 @Table(name = "lure")
-public class Lure {
-
-    //Идентификатор наживки
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Lure extends PanacheEntity {
 
     //Название наживки
-    @Column
-    private String name;
+    public String name;
 
     //Глубина действия наживки
-    @Column
-    private Double depth;
+    public Double depth;
 
     //  Список соревнований, где используется наживка
     @ManyToMany(mappedBy = "lures")
-    private List<Competition> competitions = new ArrayList<>();
+    @JsonIgnore
+    public Collection<Competition> competition;
 
-    public String getName() {
-        return name;
+    public Lure() {
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public static List<Lure> findAllLures(){
+        return listAll();
     }
 
-    public Double getDepth() {
-        return depth;
+    public static List<Lure> findLureById(String id){
+        return findById(id);
     }
 
-    public void setDepth(Double depth) {
-        this.depth = depth;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public List<Competition> getCompetitions() {
-        return competitions;
-    }
-
-    public void setCompetitions(List<Competition> competitions) {
-        this.competitions = competitions;
+    public static Lure insertLure(Lure lure) {
+        lure.persist();
+        return lure;
     }
 }

@@ -1,67 +1,49 @@
 package rsatu.course.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Сущность Рыба
  */
 @Entity
 @Table(name = "fish")
-public class Fish {
-    //    Уникальный идентификатор рыбы
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
+public class Fish extends PanacheEntity {
     //    Название семейства рыб
-    @Column
-    private String kind;
+    public String kind;
 
     //    Название рыбы
-    @Column
-    private String name;
+    public String name;
 
     //    Средняя глубина обитания рыбы в озере
-    @Column
-    private Double depth;
+    public Double depth;
 
     //    Средний вес рыбы
-    @Column
-    private Double weight;
+    public Double weight;
 
-    public Long getId() {
-        return id;
+    //  Список озер, где водится рыба
+    @ManyToMany(mappedBy = "fishes")
+    @JsonIgnore
+    public Collection<Lake> lakes;
+
+    public Fish() {
     }
 
-    public String getKind() {
-        return kind;
+    public static List<Fish> findAllFishes(){
+        return listAll();
     }
 
-    public void setKind(String kind) {
-        this.kind = kind;
+    public static List<Fish> findFishById(String id){
+        return findById(id);
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Double getDepth() {
-        return depth;
-    }
-
-    public void setDepth(Double depth) {
-        this.depth = depth;
-    }
-
-    public Double getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Double weight) {
-        this.weight = weight;
+    public static Fish insertFish(Fish fish) {
+        fish.persist();
+        return fish;
     }
 }
