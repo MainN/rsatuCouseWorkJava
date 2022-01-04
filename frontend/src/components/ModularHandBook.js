@@ -1,12 +1,48 @@
 import React, { useState } from 'react';
-import { Modal, Form, Button } from 'react-bootstrap';
+import { Modal, Form, Button, Dropdown } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import TableFish from './TableFish'
+import TableLake from './TableLake'
+import TableLure from './TableLure'
 
 export default function ModalWindow() {
+  function ShowFish()
+{
+  handleLureClose();
+  handleLakeClose();
+  handleFishShow();
+}
+function ShowLake()
+{
+handleLureClose();
+handleLakeShow();
+handleFishClose();
+}
+function ShowLure()
+{
+handleFishClose();
+handleLakeClose();
+handleLureShow();
+}
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const [fishShow, setFishShow] = useState(false);
+
+    const handleFishClose = () => setFishShow(false);
+    const handleFishShow = () => setFishShow(true);
+
+    const [lakeShow, setLakeShow] = useState(false);
+
+    const handleLakeClose = () => setLakeShow(false);
+    const handleLakeShow = () => setLakeShow(true);
+
+    const [lureShow, setLureShow] = useState(false);
+
+    const handleLureClose = () => setLureShow(false);
+    const handleLureShow = () => setLureShow(true);
 
     const handleAddFish = () => {
         let fishInfo = {
@@ -35,27 +71,28 @@ export default function ModalWindow() {
                     <Modal.Title>Справочник</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form>
-                        <p>
-                            <Form.Group controlId="fishName">
-                                <Button variant="primary" onClick={handleClose}>Рыбы</Button>
-                            </Form.Group>
-                        </p>
-                        <p>
-                            <Form.Group controlId="fishType">
-                                <Button variant="primary" onClick={handleClose}>Озёра</Button>
-                            </Form.Group>
-                        </p>
-                        <Form.Group controlId="fishDepth">
-                            <Button variant="primary" onClick={handleClose}>Наживки</Button>
-                        </Form.Group>
+                <Form>
+                <Dropdown>
+                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                        Справочник:
+                    </Dropdown.Toggle>
 
-                    </Form>
+                    <Dropdown.Menu>
+                    <button class="dropdown-item" type="button" onClick={ShowFish}> Рыбы</button>
+<button class="dropdown-item" type="button" onClick={ShowLake}>Озёра</button>
+<button class="dropdown-item" type="button" onClick={ShowLure} >Наживки</button>
+                    </Dropdown.Menu>
+                </Dropdown>
+                {fishShow ? <TableFish data={[]} /> : null}
+                {lakeShow ? <TableLake data={[]} /> : null}
+                {lureShow ? <TableLure data={[]} /> : null}
+                </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={handleAddFish}>Назад</Button>
+                    <Button variant="primary" onClick={handleClose}>Назад</Button>
                 </Modal.Footer>
             </Modal>
+
         </div>
     )
 }

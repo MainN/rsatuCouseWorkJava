@@ -12,7 +12,8 @@ export default function ModalWindow() {
 
     return (
         <div>
-        <button type="button" className="btn btn-outline-primary" onClick={handleShow}> <img src="http://cdn.onlinewebfonts.com/svg/download_415638.png" alt="" width="40" height="40"></img> </button>
+        <button type="button" className="btn btn-outline-primary" onClick={handleShow}> Профиль </button>
+
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
                 <Modal.Title>Профиль пользователя</Modal.Title>
@@ -41,11 +42,12 @@ export default function ModalWindow() {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="primary" >Выход</Button>
+              <Button variant="primary" onClick={handleClose}>Назад</Button>
 
                 <Button variant="primary" >Изменить</Button>
             </Modal.Footer>
         </Modal>
+        
         </div>
     )
 }

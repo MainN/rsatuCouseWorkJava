@@ -24,11 +24,11 @@ class App extends Component {
 
   render() {
     return (
-      
+
       <div className="container">
         <MyNavBar/>
         <CompetitionsTable data={this.state.data} />
-        <ModalWindow/>
+        
       </div>
 
     );
