@@ -2,6 +2,7 @@ package rsatu.course.service;
 
 import rsatu.course.pojo.Member;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -10,6 +11,7 @@ import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.util.List;
 
+@ApplicationScoped
 public class MemberService {
 
     @Inject
