@@ -6,24 +6,21 @@ import TableLake from './TableLake'
 import TableLure from './TableLure'
 
 export default function ModalWindow() {
-  function ShowFish()
-{
-  handleLureClose();
-  handleLakeClose();
-  handleFishShow();
-}
-function ShowLake()
-{
-handleLureClose();
-handleLakeShow();
-handleFishClose();
-}
-function ShowLure()
-{
-handleFishClose();
-handleLakeClose();
-handleLureShow();
-}
+    function ShowFish() {
+        handleLureClose();
+        handleLakeClose();
+        handleFishShow();
+    }
+    function ShowLake() {
+        handleLureClose();
+        handleLakeShow();
+        handleFishClose();
+    }
+    function ShowLure() {
+        handleFishClose();
+        handleLakeClose();
+        handleLureShow();
+    }
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -71,22 +68,22 @@ handleLureShow();
                     <Modal.Title>Справочник</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                <Form>
-                <Dropdown>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                        Справочник:
-                    </Dropdown.Toggle>
+                    <Form>
+                        <Dropdown>
+                            <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                Справочник:
+                            </Dropdown.Toggle>
 
-                    <Dropdown.Menu>
-                    <button class="dropdown-item" type="button" onClick={ShowFish}> Рыбы</button>
-<button class="dropdown-item" type="button" onClick={ShowLake}>Озёра</button>
-<button class="dropdown-item" type="button" onClick={ShowLure} >Наживки</button>
-                    </Dropdown.Menu>
-                </Dropdown>
-                {fishShow ? <TableFish data={[]} /> : null}
-                {lakeShow ? <TableLake data={[]} /> : null}
-                {lureShow ? <TableLure data={[]} /> : null}
-                </Form>
+                            <Dropdown.Menu>
+                                <button class="dropdown-item" type="button" onClick={ShowFish}> Рыбы</button>
+                                <button class="dropdown-item" type="button" onClick={ShowLake}>Озёра</button>
+                                <button class="dropdown-item" type="button" onClick={ShowLure} >Наживки</button>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                        {fishShow ? <TableFish data={[]} /> : null}
+                        {lakeShow ? <TableLake data={[]} /> : null}
+                        {lureShow ? <TableLure data={[]} /> : null}
+                    </Form>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={handleClose}>Назад</Button>

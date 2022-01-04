@@ -22,6 +22,7 @@ export default function CompetitionsTable() {
                     <th>Дата начала</th>
                     <th>Текущее/Макс. кол-во участников</th>
                     <th>Приз</th>
+                    <th>Вид соревнования</th>
                     <th>Дата окончания</th>
                 </tr>
             </thead>
@@ -32,6 +33,7 @@ export default function CompetitionsTable() {
                         <td>{item.startDate}</td>
                         <td>{item.members.length}\{item.maxMembers}</td>
                         <td>{item.prize}</td>
+                        <td>{item.type}</td>
                         <td>{item.endDate}</td>
                     </tr>
                 ))}

@@ -5,7 +5,7 @@ export default function DropDownMenu() {
     return (
         <Dropdown>
             <Dropdown.Toggle variant="success" id="dropdown-basic">
-                <img src="http://cdn.onlinewebfonts.com/svg/download_415638.png" alt="" width="40" height="40"></img> 
+                <img src="http://cdn.onlinewebfonts.com/svg/download_415638.png" alt="" width="40" height="40"></img>
             </Dropdown.Toggle>
 
             <Dropdown.Menu>

@@ -27,17 +27,17 @@ export default function MyNavBar() {
       {setShow ? <ModalCompetitionCreate /> : null}
       Вася Пупкин
       <Dropdown>
-          <Dropdown.Toggle variant="white" id="dropdown-basic">
-              <img src="http://cdn.onlinewebfonts.com/svg/download_415638.png" alt="" width="40" height="40"></img>
-          </Dropdown.Toggle>
+        <Dropdown.Toggle variant="white" id="dropdown-basic">
+          <img src="http://cdn.onlinewebfonts.com/svg/download_415638.png" alt="" width="40" height="40"></img>
+        </Dropdown.Toggle>
 
-          <Dropdown.Menu>
-              <ProfileModal/>
-              <p>
-              </p>
-              <button type="button" className="btn btn-outline-primary" > Выход </button>
+        <Dropdown.Menu>
+          <ProfileModal />
+          <p>
+          </p>
+          <button type="button" className="btn btn-outline-primary" > Выход </button>
 
-          </Dropdown.Menu>
+        </Dropdown.Menu>
       </Dropdown>
     </div>
   </nav>
