@@ -11,7 +11,7 @@ export default props => (
             </tr>
         </thead>
         <tbody>
-            { props.data.map(item =>(
+            {props.data.map(item => (
                 <tr key={item.id}>
                     <td>{item.name}</td>
                     <td>{item.kind}</td>

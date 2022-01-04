@@ -36,11 +36,11 @@ export default function ModalWindow() {
                     <Form>
                         <Form.Group controlId="fishName">
                             <Form.Label>Название</Form.Label>
-                            <Form.Control type="text"/>
+                            <Form.Control type="text" />
                         </Form.Group>
                         <Form.Group controlId="fishType">
                             <Form.Label>Семейство</Form.Label>
-                            <Form.Control type="text"/>
+                            <Form.Control type="text" />
                         </Form.Group>
                         <Form.Group controlId="fishDepth">
                             <Form.Label>Глубина обитания</Form.Label>

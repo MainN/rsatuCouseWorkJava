@@ -12,7 +12,7 @@ export default function ModalWindow() {
 
     return (
         <div>
-        <button type="button" class="btn btn-outline-primary" onClick={handleShow}> <img src="http://cdn.onlinewebfonts.com/svg/download_415638.png" alt="" width="40" height="40"></img> </button>
+        <button type="button" className="btn btn-outline-primary" onClick={handleShow}> <img src="http://cdn.onlinewebfonts.com/svg/download_415638.png" alt="" width="40" height="40"></img> </button>
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
                 <Modal.Title>Профиль пользователя</Modal.Title>
@@ -31,7 +31,7 @@ export default function ModalWindow() {
 
                     <Form.Group controlId="compType">
                         <Form.Label>Пол пользователя </Form.Label>
-                        <select class="form-control" id="exampleFormControlSelect1">
+                        <select className="form-control" id="exampleFormControlSelect1">
                         <option>Мужской</option>
                         <option>Женский</option>
                         <option>Другое</option>
