@@ -14,6 +14,17 @@ export default function CompetitionsTable() {
         fetchData();
     });
 
+    function getFormatedCompType(type) {
+        switch (type) {
+            case 'WITH_BOAT':
+                return 'на лодке'
+            case 'FROM_SHORE':
+                return 'с берега'
+            case 'ON_ICE':
+                return 'на льду'
+        }
+    }
+
     return <div>
         <table className="table">
             <thead>
@@ -33,7 +44,7 @@ export default function CompetitionsTable() {
                         <td>{item.startDate}</td>
                         <td>{item.members.length}\{item.maxMembers}</td>
                         <td>{item.prize}</td>
-                        <td>{item.type}</td>
+                        <td>{getFormatedCompType(item.type)}</td>
                         <td>{item.endDate}</td>
                     </tr>
                 ))}

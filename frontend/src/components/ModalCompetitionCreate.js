@@ -10,9 +10,21 @@ export default function ModalWindow() {
 
 
     const handleAddCompetition = () => {
+        let typeComp = document.getElementById("exampleFormControlSelect1").value;
+        switch (typeComp) {
+            case 'на лодке':
+                typeComp = 'WITH_BOAT'
+                break;
+            case 'с берега':
+                typeComp = 'FROM_SHORE'
+                break;
+            case 'на льду':
+                typeComp = 'ON_ICE'
+                break;
+        }
         let compInfo = {
             startDate: document.getElementById("compDateBegin").value,
-            type: document.getElementById("exampleFormControlSelect1").value,
+            type: typeComp,
             maxMembers: parseFloat(document.getElementById("compMaxSize").value),
             prize: parseFloat(document.getElementById("compPrize").value),
             endDate: parseFloat(document.getElementById("compDateEnd").value),
@@ -44,9 +56,9 @@ export default function ModalWindow() {
                         <Form.Group controlId="compType">
                             <Form.Label>Вид соревнования </Form.Label>
                             <select className="form-control" id="exampleFormControlSelect1">
-                                <option>WITH_BOAT</option>
-                                <option>FROM_SHORE</option>
-                                <option>ON_ICE</option>
+                                <option>на лодке</option>
+                                <option>с берега</option>
+                                <option>на льду</option>
                             </select>
                         </Form.Group>
                         <Form.Group controlId="compMaxSize">
