@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 import javax.persistence.*;
+import javax.ws.rs.NotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -45,5 +46,13 @@ public class Fish extends PanacheEntity {
     public static Fish insertFish(Fish fish) {
         fish.persist();
         return fish;
+    }
+
+    public static void deleteFishById(Long id) {
+        Fish fish = findById(id);
+        if (fish == null) {
+            throw new NotFoundException();
+        }
+        fish.delete();
     }
 }

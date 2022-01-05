@@ -75,9 +75,9 @@ export default function ModalWindow() {
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
-                                <button class="dropdown-item" type="button" onClick={ShowFish}> Рыбы</button>
-                                <button class="dropdown-item" type="button" onClick={ShowLake}>Озёра</button>
-                                <button class="dropdown-item" type="button" onClick={ShowLure} >Наживки</button>
+                                <button className="dropdown-item" type="button" onClick={ShowFish}> Рыбы</button>
+                                <button className="dropdown-item" type="button" onClick={ShowLake}>Озёра</button>
+                                <button className="dropdown-item" type="button" onClick={ShowLure} >Наживки</button>
                             </Dropdown.Menu>
                         </Dropdown>
                         {fishShow ? <TableFish data={[]} /> : null}

@@ -10,10 +10,11 @@ import javax.ws.rs.core.Response;
 
 @Path("api/lake")
 public class LakeResource {
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     @Path("/get")
-    @Transactional
     public Response getLakes() {
         return Response.ok(Lake.findAllLakes()).build();
     }
@@ -25,6 +26,15 @@ public class LakeResource {
     @Transactional
     public Response insertLake(Lake lake) {
         return Response.ok(Lake.insertLake(lake)).build();
+    }
+
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/delete")
+    @Transactional
+    public void deleteLakeById(Long id) {
+        Lake.deleteLakeById(id);
     }
 
 }
