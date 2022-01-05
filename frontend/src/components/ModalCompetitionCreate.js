@@ -12,13 +12,13 @@ export default function ModalWindow() {
     const handleAddCompetition = () => {
         let typeComp = document.getElementById("exampleFormControlSelect1").value;
         switch (typeComp) {
-            case 'на лодке':
+            case 'На лодке':
                 typeComp = 'WITH_BOAT'
                 break;
-            case 'с берега':
+            case 'С берега':
                 typeComp = 'FROM_SHORE'
                 break;
-            case 'на льду':
+            case 'На льду':
                 typeComp = 'ON_ICE'
                 break;
         }
@@ -27,7 +27,7 @@ export default function ModalWindow() {
             type: typeComp,
             maxMembers: parseFloat(document.getElementById("compMaxSize").value),
             prize: parseFloat(document.getElementById("compPrize").value),
-            endDate: parseFloat(document.getElementById("compDateEnd").value),
+            endDate: document.getElementById("compDateEnd").value
         };
         console.log(JSON.stringify(compInfo));
         fetch('http://localhost:8080/api/competition/insert', {
@@ -56,9 +56,9 @@ export default function ModalWindow() {
                         <Form.Group controlId="compType">
                             <Form.Label>Вид соревнования </Form.Label>
                             <select className="form-control" id="exampleFormControlSelect1">
-                                <option>на лодке</option>
-                                <option>с берега</option>
-                                <option>на льду</option>
+                                <option>На лодке</option>
+                                <option>С берега</option>
+                                <option>На льду</option>
                             </select>
                         </Form.Group>
                         <Form.Group controlId="compMaxSize">
