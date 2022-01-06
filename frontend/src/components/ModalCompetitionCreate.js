@@ -77,6 +77,32 @@ export default function ModalWindow() {
                             <Form.Label>Дата конца соревнования</Form.Label>
                             <Form.Control type="date" />
                         </Form.Group>
+                        <Form.Group controlId="compType">
+                            <Form.Label>Озеро соревнования </Form.Label>
+                            <select className="form-control" id="exampleFormControlSelect1">
+                                <option>На лодке</option>
+                                <option>С берега</option>
+                                <option>На льду</option>
+                            </select>
+                        </Form.Group>
+                        <Form.Group controlId="compType">
+                            <Form.Label>Применяемая на соревании наживка</Form.Label>
+                            <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></input>
+  <label class="form-check-label" for="flexCheckDefault">
+    Default checkbox
+  </label>
+</div>
+<div class="form-check">
+<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></input>
+<label class="form-check-label" for="flexCheckDefault">
+Default checkbox
+</label>
+</div>
+
+
+                        </Form.Group>
+
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>

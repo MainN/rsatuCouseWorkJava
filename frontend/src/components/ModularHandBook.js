@@ -24,7 +24,7 @@ export default function ModalWindow() {
           const json = await res.json();
           setDataLake(json);
       };
-      const fetchLure = async () => {
+      const fetchDataLure = async () => {
           const res = await fetch(
               'api/lure/get',
           );
@@ -32,6 +32,9 @@ export default function ModalWindow() {
           setDataLure(json);
       };
       fetchDataFish();
+      fetchDataLake();
+      fetchDataLure();
+
   });
     function ShowFish() {
         handleLureClose();
@@ -96,7 +99,7 @@ export default function ModalWindow() {
                         </Dropdown>
                         {fishShow ? <TableFish data={dataFish} /> : null}
                         {lakeShow ? <TableLake data={dataLake} /> : null}
-                        {lureShow ? <TableLure data={dataLurex} /> : null}
+                        {lureShow ? <TableLure data={dataLure} /> : null}
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>

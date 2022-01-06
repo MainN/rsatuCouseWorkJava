@@ -1,6 +1,7 @@
 import React from 'react';
 import ModalWindowLake from './ModalWindowLake'
 export default props => (
+    
     <div>
     <table className="table">
         <thead>

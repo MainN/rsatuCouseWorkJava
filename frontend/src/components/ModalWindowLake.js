@@ -38,7 +38,7 @@ export default function ModalWindow() {
                             <Form.Label>Название</Form.Label>
                             <Form.Control type="text" />
                         </Form.Group>
-                        <Form.Group controlId="lakeAre">
+                        <Form.Group controlId="lakeArea">
                             <Form.Label>Площадь</Form.Label>
                             <Form.Control type="number" />
                         </Form.Group>
