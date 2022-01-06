@@ -1,5 +1,5 @@
 import React from 'react';
-
+import ModalWindowLake from './ModalWindowLake'
 export default props => (
     <div>
     <table className="table">
@@ -14,16 +14,14 @@ export default props => (
         <tbody>
             {props.data.map(item => (
                 <tr key={item.id}>
-                    <td>{item.name}</td>
+                    <td>{item.area}</td>
                     <td>{item.kind}</td>
                     <td>{item.depth}</td>
-                    <td>{item.weight}</td>
+                    <td>{item.name}</td>
                 </tr>
             ))}
         </tbody>
     </table>
-    <button type="button" className="btn btn-outline-primary" > Добавить </button>
-    <span> </span>
-    <button type="button" className="btn btn-outline-primary" > Удалить </button>
+    <ModalWindowLake/>
     </div>
 )

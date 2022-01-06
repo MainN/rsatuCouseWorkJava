@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import CompetitionsTable from './components/CompetitionsTable'
 import MyNavBar from './components/MyNavBar'
 class App extends Component {
-
   constructor(props) {
     // highlight-range{3}
     super(props);
@@ -22,21 +21,15 @@ class App extends Component {
        method: 'post',
        body: formData
     });
-};
+  };
+
 
   render() {
     return (
       <div className="container">
         <MyNavBar />
         <CompetitionsTable />
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Upload file:
-            <input type="file" ref={this.fileInput} />
-          </label>
-          <br />
-          <button type="submit">Submit</button>
-        </form>
+
       </div>
     );
   }

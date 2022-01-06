@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState }from 'react';
 import { Modal, Form, Button, Dropdown } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TableFish from './TableFish'
@@ -6,10 +6,38 @@ import TableLake from './TableLake'
 import TableLure from './TableLure'
 
 export default function ModalWindow() {
+  const [dataFish, setDataFish] = useState([]);
+  const [dataLake, setDataLake] = useState([]);
+  const [dataLure, setDataLure] = useState([]);
+  useEffect(() => {
+      const fetchDataFish = async () => {
+          const res = await fetch(
+              'api/fish/get',
+          );
+          const json = await res.json();
+          setDataFish(json);
+      };
+      const fetchDataLake = async () => {
+          const res = await fetch(
+              'api/lake/get',
+          );
+          const json = await res.json();
+          setDataLake(json);
+      };
+      const fetchLure = async () => {
+          const res = await fetch(
+              'api/lure/get',
+          );
+          const json = await res.json();
+          setDataLure(json);
+      };
+      fetchDataFish();
+  });
     function ShowFish() {
         handleLureClose();
         handleLakeClose();
         handleFishShow();
+
     }
     function ShowLake() {
         handleLureClose();
@@ -41,21 +69,7 @@ export default function ModalWindow() {
     const handleLureClose = () => setLureShow(false);
     const handleLureShow = () => setLureShow(true);
 
-    const handleAddFish = () => {
-        let fishInfo = {
-            name: document.getElementById("fishName").value,
-            kind: document.getElementById("fishType").value,
-            depth: parseFloat(document.getElementById("fishDepth").value),
-            weight: parseFloat(document.getElementById("fishWeight").value),
-        };
-        console.log(JSON.stringify(fishInfo));
-        fetch('http://localhost:8080/fish/insert', {
-            method: 'POST',
-            headers: { 'Content-type': 'application/json' },
-            body: JSON.stringify(fishInfo)
-        });
 
-    }
 
     return (
         <div>
@@ -80,9 +94,9 @@ export default function ModalWindow() {
                                 <button className="dropdown-item" type="button" onClick={ShowLure} >Наживки</button>
                             </Dropdown.Menu>
                         </Dropdown>
-                        {fishShow ? <TableFish data={[]} /> : null}
-                        {lakeShow ? <TableLake data={[]} /> : null}
-                        {lureShow ? <TableLure data={[]} /> : null}
+                        {fishShow ? <TableFish data={dataFish} /> : null}
+                        {lakeShow ? <TableLake data={dataLake} /> : null}
+                        {lureShow ? <TableLure data={dataLurex} /> : null}
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>

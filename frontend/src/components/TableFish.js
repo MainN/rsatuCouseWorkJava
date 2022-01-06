@@ -1,6 +1,8 @@
-import React from 'react';
-
+import React, { useState } from 'react';
+import { Modal, Form, Button, Dropdown } from 'react-bootstrap';
+import ModalWindow from './ModalWindow'
 export default props => (
+
     <div>
         <table className="table">
             <thead>
@@ -22,8 +24,7 @@ export default props => (
                 ))}
             </tbody>
         </table>
-        <button type="button" className="btn btn-outline-primary" > Добавить </button>
-        <span> </span>
-        <button type="button" className="btn btn-outline-primary" > Удалить </button>
+        <ModalWindow/>
+
     </div>
 )

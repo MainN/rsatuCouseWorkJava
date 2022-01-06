@@ -27,11 +27,11 @@ export default function ModalWindow() {
             type: typeComp,
             maxMembers: parseFloat(document.getElementById("compMaxSize").value),
             prize: parseFloat(document.getElementById("compPrize").value),
-<<<<<<< HEAD
-            endDate: document.getElementById("compDateEnd").value
-=======
+
+
+
             endDate: document.getElementById("compDateEnd").value,
->>>>>>> 8c4d9e4bbd7d4c89ecdeb22278be886ba79ab08d
+
         };
         console.log(JSON.stringify(compInfo));
         fetch('http://localhost:8080/api/competition/insert', {
