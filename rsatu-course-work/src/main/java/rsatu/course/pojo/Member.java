@@ -16,20 +16,16 @@ import java.util.List;
 @Entity
 @Table(name = "member")
 public class Member extends PanacheEntity {
-
     //    Дата рождения
     public Date birthDate;
-
     //    Пол
     public String sex;
-
-
     //    ФИО
     public String fio;
-
-
     //    Роль
     public Role role;
+    // email
+    public String email;
 
     //  Список соревнований пользользователя
     @ManyToMany(mappedBy = "members")
@@ -53,5 +49,9 @@ public class Member extends PanacheEntity {
             return (List<Member>) competition.members;
         }
         return null;
+    }
+
+    public static Member findByEmail(String email) {
+        return Member.find("email", email).firstResult();
     }
 }
