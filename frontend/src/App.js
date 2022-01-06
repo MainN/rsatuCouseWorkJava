@@ -1,19 +1,42 @@
 
 import React, { Component } from 'react';
-import Table from './components/Table';
-import HelpButton from './components/HelpButton'
-import ModalWindow from './components/ModalWindow';
-import Search from './components/Search'
-import { Modal, Form, Button, Dropdown } from 'react-bootstrap';
 import CompetitionsTable from './components/CompetitionsTable'
 import MyNavBar from './components/MyNavBar'
 class App extends Component {
 
+  constructor(props) {
+    // highlight-range{3}
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.fileInput = React.createRef();
+  }
+
+  handleSubmit(event){
+    const formData = new FormData();
+    formData.append('file', this.fileInput.current.files[0]);
+    formData.append('idCompetition', '5');
+    formData.append('originalName', this.fileInput.current.files[0].name);
+    console.log(formData.getAll);
+    event.preventDefault();
+    fetch('http://localhost:8080/api/file/upload', {
+       method: 'post',
+       body: formData
+    });
+};
+
   render() {
     return (
       <div className="container">
-        <MyNavBar/>
-        <CompetitionsTable />      
+        <MyNavBar />
+        <CompetitionsTable />
+        <form onSubmit={this.handleSubmit}>
+          <label>
+            Upload file:
+            <input type="file" ref={this.fileInput} />
+          </label>
+          <br />
+          <button type="submit">Submit</button>
+        </form>
       </div>
     );
   }
