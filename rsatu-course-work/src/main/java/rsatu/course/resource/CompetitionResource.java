@@ -1,5 +1,6 @@
 package rsatu.course.resource;
 
+import io.quarkus.security.Authenticated;
 import rsatu.course.pojo.Competition;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -19,6 +20,7 @@ public class CompetitionResource {
     @Consumes("application/json")
     @Produces("application/json")
     @Path("/get")
+    @Authenticated
     public Response getCompetitions() {
         return Response.ok(Competition.findAllCompetitions()).build();
     }

@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react';
 
-export default function CompetitionsTable() {
+export default function CompetitionsTable(props) {
 
     const [data, setData] = useState([]);
     useEffect(() => {
         const fetchData = async () => {
             const res = await fetch(
                 'api/competition/get',
+                {
+                    headers: { "Authorization": "Bearer " + props.token }
+                  }
             );
             const json = await res.json();
             setData(json);
         };
         fetchData();
-    });
+    }, []);
 
     function getFormatedCompType(type) {
         switch (type) {

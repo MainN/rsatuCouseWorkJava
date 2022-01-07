@@ -27,9 +27,6 @@ export default function ModalWindow() {
             type: typeComp,
             maxMembers: parseFloat(document.getElementById("compMaxSize").value),
             prize: parseFloat(document.getElementById("compPrize").value),
-
-
-
             endDate: document.getElementById("compDateEnd").value,
 
         };
@@ -40,6 +37,7 @@ export default function ModalWindow() {
             body: JSON.stringify(compInfo)
         });
         setShow(false);
+        window.location.reload(false);
     }
 
 
@@ -88,17 +86,17 @@ export default function ModalWindow() {
                         <Form.Group controlId="compType">
                             <Form.Label>Применяемая на соревании наживка</Form.Label>
                             <div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></input>
-  <label class="form-check-label" for="flexCheckDefault">
-    Default checkbox
-  </label>
-</div>
-<div class="form-check">
-<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></input>
-<label class="form-check-label" for="flexCheckDefault">
-Default checkbox
-</label>
-</div>
+                                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"></input>
+                                <label className="form-check-label" htmlFor="flexCheckDefault">
+                                    Default checkbox
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"></input>
+                                <label className="form-check-label" htmlFor="flexCheckDefault">
+                                    Default checkbox
+                                </label>
+                            </div>
 
 
                         </Form.Group>

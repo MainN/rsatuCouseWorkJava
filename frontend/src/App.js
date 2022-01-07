@@ -2,35 +2,56 @@
 import React, { Component } from 'react';
 import CompetitionsTable from './components/CompetitionsTable'
 import MyNavBar from './components/MyNavBar'
+import Keycloak from 'keycloak-js';
 class App extends Component {
   constructor(props) {
     // highlight-range{3}
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.fileInput = React.createRef();
+    this.state = { keycloak: null, authenticated: false, user: []};
   }
 
-  handleSubmit(event){
-    const formData = new FormData();
-    formData.append('file', this.fileInput.current.files[0]);
-    formData.append('idCompetition', '5');
-    formData.append('originalName', this.fileInput.current.files[0].name);
-    console.log(formData.getAll);
-    event.preventDefault();
-    fetch('http://localhost:8080/api/file/upload', {
-       method: 'post',
-       body: formData
-    });
-  };
+  componentDidMount() {
+    const keycloak = Keycloak('/keycloak.json');
+    keycloak.init({ onLoad: 'login-required' }).then(authenticated => {
+      this.setState({ keycloak: keycloak, authenticated: authenticated });
+      if (keycloak) {
+        if (authenticated) {
+          this.getUser(this.state.keycloak.token);
+        }
+      }
+    })
+  }
 
+  getUser(token) {
+    const fetchDataUser = async () => {
+      const res = await fetch(
+        'api/member/user',
+        {
+          headers: { "Authorization": "Bearer " + token }
+        }
+      );
+      const json = await res.json();
+      console.log(json);
+      this.setState({user: json});
+
+    };
+    fetchDataUser();
+  }
 
   render() {
-    return (
-      <div className="container">
-        <MyNavBar />
-        <CompetitionsTable />
+    if (this.state.keycloak) {
+      if (this.state.authenticated) {
+        return (
+          <div className="container">
+            <MyNavBar user={this.state.user} token={this.state.keycloak.token} keycloak={this.state.keycloak} />
+            <CompetitionsTable user={this.state.user} token={this.state.keycloak.token} />
 
-      </div>
+          </div>
+        );
+      }
+    }
+    return (
+      <div>Initializing Keycloak...</div>
     );
   }
 }

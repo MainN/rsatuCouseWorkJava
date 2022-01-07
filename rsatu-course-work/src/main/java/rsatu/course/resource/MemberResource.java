@@ -1,6 +1,7 @@
 package rsatu.course.resource;
 
 import io.quarkus.security.Authenticated;
+import io.quarkus.security.identity.SecurityIdentity;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 import rsatu.course.enums.Role;
 import rsatu.course.pojo.Member;
@@ -16,6 +17,9 @@ public class MemberResource {
 
     @Inject
     JsonWebToken jwt;
+
+    @Inject
+    SecurityIdentity identity;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -41,10 +45,10 @@ public class MemberResource {
             user = new Member();
             user.email = email;
 
-            String buffer = jwt.getClaim("groups").toString();
+            String buffer = jwt.getClaim("realm_access").toString();
             //Поиск роли пользователя
             Role r = null;
-            if (buffer.contains("member")) {
+            if (buffer.contains("user")) {
                 r = Role.MEMBER;
             } else if (buffer.contains("organizer")) {
                 r = Role.ORGANIZER;
