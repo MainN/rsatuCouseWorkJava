@@ -1,11 +1,11 @@
 import React from 'react';
 import ModalWindow from './ModalWindow'
+import ModalWindowLure from './ModalWindowLure'
 export default props => (
   <div>
     <table className="table">
         <thead>
             <tr>
-                <th>Код наживки</th>
                 <th>Название</th>
                 <th>Глубина</th>
 
@@ -23,6 +23,6 @@ export default props => (
         </tbody>
     </table>
 
-    <ModalWindow/>
+    <ModalWindowLure/>
     </div>
 )

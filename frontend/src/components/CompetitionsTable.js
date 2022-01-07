@@ -35,6 +35,7 @@ export default function CompetitionsTable() {
                     <th>Приз</th>
                     <th>Вид соревнования</th>
                     <th>Дата окончания</th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -46,6 +47,7 @@ export default function CompetitionsTable() {
                         <td>{item.prize}</td>
                         <td>{getFormatedCompType(item.type)}</td>
                         <td>{item.endDate}</td>
+
                     </tr>
                 ))}
             </tbody>

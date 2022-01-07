@@ -29,7 +29,7 @@ class App extends Component {
       <div className="container">
         <MyNavBar />
         <CompetitionsTable />
-
+        
       </div>
     );
   }
