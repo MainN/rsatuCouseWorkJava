@@ -2,14 +2,13 @@ package rsatu.course.resource;
 
 import io.quarkus.security.Authenticated;
 import rsatu.course.pojo.Competition;
+import rsatu.course.pojo.Lake;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
 
 @Path("api/competition")
 @ApplicationScoped
@@ -32,5 +31,20 @@ public class CompetitionResource {
     @Transactional
     public Response insertCompetition(Competition competition) {
         return Response.ok(Competition.insertCompetition(competition)).build();
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{idCompetition}/addLake{idLake}")
+    @Transactional
+    public Response addLakeById(Long idCompetition, Long idLake) {
+        Lake lake = Lake.findLakeById(idLake);
+        Competition competition = Competition.findCompetitionById(idCompetition);
+        if (lake != null && competition != null) {
+            competition.lake = lake;
+            return Response.ok(competition).build();
+        }
+        return Response.serverError().build();
     }
 }

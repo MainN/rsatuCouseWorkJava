@@ -42,7 +42,7 @@ public class Lake extends PanacheEntity {
         return listAll();
     }
 
-    public static List<Lake> findLakeById(String id){
+    public static Lake findLakeById(Long id){
         return findById(id);
     }
 

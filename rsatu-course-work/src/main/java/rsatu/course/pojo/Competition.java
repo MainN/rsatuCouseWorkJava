@@ -68,7 +68,7 @@ public class Competition extends PanacheEntity {
         return listAll();
     }
 
-    public static List<Competition> findCompetitionById(String id){
+    public static Competition findCompetitionById(Long id){
         return findById(id);
     }
 
