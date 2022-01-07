@@ -5,8 +5,30 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 export default function ModalWindow() {
     const [show, setShow] = useState(false);
 
+    const [dataLake, setDataLake] = useState([]);
+    const [dataLure, setDataLure] = useState([]);
+
+    const fetchDataLake = async () => {
+        const res = await fetch(
+            'api/lake/get',
+        );
+        const json = await res.json();
+        setDataLake(json);
+    };
+    const fetchDataLure = async () => {
+        const res = await fetch(
+            'api/lure/get',
+        );
+        const json = await res.json();
+        setDataLure(json);
+    };
+
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow = () => {
+        fetchDataLake();
+        fetchDataLure();
+        setShow(true);
+    }
 
 
     const handleAddCompetition = () => {
@@ -37,7 +59,6 @@ export default function ModalWindow() {
             body: JSON.stringify(compInfo)
         });
         setShow(false);
-        window.location.reload(false);
     }
 
 
@@ -77,26 +98,26 @@ export default function ModalWindow() {
                         </Form.Group>
                         <Form.Group controlId="compType">
                             <Form.Label>Озеро соревнования </Form.Label>
+
                             <select className="form-control" id="exampleFormControlSelect1">
-                                <option>На лодке</option>
-                                <option>С берега</option>
-                                <option>На льду</option>
+                                {dataLake.map(item => (
+                                <option>{item.name}</option>
+
+                              ))}
                             </select>
+
                         </Form.Group>
                         <Form.Group controlId="compType">
                             <Form.Label>Применяемая на соревании наживка</Form.Label>
+                            {dataLure.map(item => (
                             <div class="form-check">
-                                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"></input>
-                                <label className="form-check-label" htmlFor="flexCheckDefault">
-                                    Default checkbox
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"></input>
-                                <label className="form-check-label" htmlFor="flexCheckDefault">
-                                    Default checkbox
-                                </label>
-                            </div>
+
+  <input class="form-check-input" type="checkbox" value="" id="lureCheckDefault{item.id}"></input>
+  <label class="form-check-label" for="flexCheckDefault">
+    {item.name}
+  </label>
+</div>
+))}
 
 
                         </Form.Group>
