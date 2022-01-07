@@ -31,7 +31,11 @@ export default function ModalWindow() {
       setDataLure(json);
   };
 
-  
+  function refresh(){
+    fetchDataFish();
+    fetchDataLake();
+    fetchDataLure();
+  }
     function ShowFish() {
         handleLureClose();
         handleLakeClose();
@@ -96,7 +100,8 @@ export default function ModalWindow() {
                                 <button className="dropdown-item" type="button" onClick={ShowLake}>Озёра</button>
                                 <button className="dropdown-item" type="button" onClick={ShowLure} >Наживки</button>
                             </Dropdown.Menu>
-                        </Dropdown>
+                        </Dropdown> <button type="button" className="btn btn-outline-primary" onClick={refresh}> <img src="https://www.freeiconspng.com/thumbs/reload-icon/arrow-refresh-reload-icon-29.png" alt="" width="40" height="40"></img> </button>
+
                         {fishShow ? <TableFish data={dataFish} /> : null}
                         {lakeShow ? <TableLake data={dataLake} /> : null}
                         {lureShow ? <TableLure data={dataLure} /> : null}
