@@ -9,48 +9,48 @@ export default function ModalWindow() {
   const [dataFish, setDataFish] = useState([]);
   const [dataLake, setDataLake] = useState([]);
   const [dataLure, setDataLure] = useState([]);
-  useEffect(() => {
-      const fetchDataFish = async () => {
-          const res = await fetch(
-              'api/fish/get',
-          );
-          const json = await res.json();
-          setDataFish(json);
-      };
-      const fetchDataLake = async () => {
-          const res = await fetch(
-              'api/lake/get',
-          );
-          const json = await res.json();
-          setDataLake(json);
-      };
-      const fetchDataLure = async () => {
-          const res = await fetch(
-              'api/lure/get',
-          );
-          const json = await res.json();
-          setDataLure(json);
-      };
-      fetchDataFish();
-      fetchDataLake();
-      fetchDataLure();
+  const fetchDataFish = async () => {
+      const res = await fetch(
+          'api/fish/get',
+      );
+      const json = await res.json();
+      setDataFish(json);
+  };
+  const fetchDataLake = async () => {
+      const res = await fetch(
+          'api/lake/get',
+      );
+      const json = await res.json();
+      setDataLake(json);
+  };
+  const fetchDataLure = async () => {
+      const res = await fetch(
+          'api/lure/get',
+      );
+      const json = await res.json();
+      setDataLure(json);
+  };
 
-  });
+  
     function ShowFish() {
         handleLureClose();
         handleLakeClose();
         handleFishShow();
+        fetchDataFish();
+
 
     }
     function ShowLake() {
         handleLureClose();
         handleLakeShow();
         handleFishClose();
+          fetchDataLake();
     }
     function ShowLure() {
         handleFishClose();
         handleLakeClose();
         handleLureShow();
+        fetchDataLure();
     }
     const [show, setShow] = useState(false);
 
