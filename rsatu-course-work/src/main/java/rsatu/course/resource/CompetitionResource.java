@@ -29,17 +29,32 @@ public class CompetitionResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/insert")
     @Transactional
-    public Response insertCompetition(Competition competition) {
-        return Response.ok(Competition.insertCompetition(competition)).build();
+    public Competition insertCompetition(Competition competition) {
+        return Competition.insertCompetition(competition);
     }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/{idCompetition}/addLake{idLake}")
+    @Path("/{idCompetition}/addLakeById{idLake}")
     @Transactional
     public Response addLakeById(Long idCompetition, Long idLake) {
         Lake lake = Lake.findLakeById(idLake);
+        Competition competition = Competition.findCompetitionById(idCompetition);
+        if (lake != null && competition != null) {
+            competition.lake = lake;
+            return Response.ok(competition).build();
+        }
+        return Response.serverError().build();
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{idCompetition}/addLakeByName{nameLake}")
+    @Transactional
+    public Response addLakeByName(Long idCompetition, String nameLake) {
+        Lake lake = Lake.findLakeByName(nameLake);
         Competition competition = Competition.findCompetitionById(idCompetition);
         if (lake != null && competition != null) {
             competition.lake = lake;

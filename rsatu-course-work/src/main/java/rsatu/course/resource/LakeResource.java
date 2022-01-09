@@ -36,4 +36,11 @@ public class LakeResource {
         Lake.deleteLakeById(id);
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/get/{name}")
+    public Lake getLakeByName(String name) {
+        return Lake.findLakeByName(name);
+    }
 }

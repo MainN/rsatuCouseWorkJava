@@ -1,17 +1,56 @@
 import React, { useEffect, useState } from 'react';
+import BootstrapTable from 'react-bootstrap-table-next';
 
 export default function CompetitionsTable(props) {
 
+    const selectRow = {
+        mode: 'radio',
+        clickToSelect: true,
+        style: { backgroundColor: 'LightGrey' }
+    };
+
+    const columns = [{
+        dataField: 'id',
+        text: 'ID'
+    }, {
+        dataField: 'startDate',
+        text: 'Дата начала'
+    }, {
+        dataField: 'members.length',
+        text: 'Тек./Макс. кол-во участников',
+        formatter:(value, row) =>{return `${value}/${row.maxMembers}`}
+    }, {
+        dataField: 'prize',
+        text: 'Приз'
+    }, {
+        dataField: 'type',
+        text: 'Вид соревнования',
+        formatter:(cell)=>{return getFormatedCompType(cell)}
+    }, {
+        dataField: 'lake.name',
+        text: 'Озеро'
+    }, {
+        dataField: 'lure.name',
+        text: 'Наживка'
+    }, {
+        dataField: 'endDate',
+        text: 'Дата окончания'
+    }
+];
+
+
     const [data, setData] = useState([]);
+
     useEffect(() => {
         const fetchData = async () => {
             const res = await fetch(
                 'api/competition/get',
                 {
                     headers: { "Authorization": "Bearer " + props.token }
-                  }
+                }
             );
             const json = await res.json();
+            console.log(json);
             setData(json);
         };
         fetchData();
@@ -28,32 +67,8 @@ export default function CompetitionsTable(props) {
         }
     }
 
-    return <div>
-        <table className="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Дата начала</th>
-                    <th>Текущее/Макс. кол-во участников</th>
-                    <th>Приз</th>
-                    <th>Вид соревнования</th>
-                    <th>Дата окончания</th>
-                    
-                </tr>
-            </thead>
-            <tbody>
-                {data.map(item => (
-                    <tr key={item.id}>
-                        <td>{item.id}</td>
-                        <td>{item.startDate}</td>
-                        <td>{item.members.length}\{item.maxMembers}</td>
-                        <td>{item.prize}</td>
-                        <td>{getFormatedCompType(item.type)}</td>
-                        <td>{item.endDate}</td>
 
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+    return <div>
+        <BootstrapTable keyField='id' data={ data } columns={ columns } selectRow = {selectRow}/>
     </div>
 }

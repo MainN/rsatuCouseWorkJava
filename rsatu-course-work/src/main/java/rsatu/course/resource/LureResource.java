@@ -1,6 +1,7 @@
 package rsatu.course.resource;
 
 import rsatu.course.pojo.Fish;
+import rsatu.course.pojo.Lake;
 import rsatu.course.pojo.Lure;
 
 import javax.inject.Inject;
@@ -36,5 +37,13 @@ public class LureResource {
     @Transactional
     public void deleteLureById(Long id) {
         Lure.deleteLureById(id);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/get/{name}")
+    public Lure getLureByName(String name) {
+        return Lure.findLureByName(name);
     }
 }

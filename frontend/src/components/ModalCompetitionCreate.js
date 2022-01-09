@@ -3,6 +3,7 @@ import { Modal, Form, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function ModalWindow() {
+    console.log("11");
     const [show, setShow] = useState(false);
 
     const [dataLake, setDataLake] = useState([]);
@@ -44,24 +45,34 @@ export default function ModalWindow() {
                 typeComp = 'ON_ICE'
                 break;
         }
-        let compInfo = {
-            startDate: document.getElementById("compDateBegin").value,
-            type: typeComp,
-            maxMembers: parseFloat(document.getElementById("compMaxSize").value),
-            prize: parseFloat(document.getElementById("compPrize").value),
-            endDate: document.getElementById("compDateEnd").value,
 
+        const fetchData = async () => {
+            const lakeName = document.getElementById("selectCompLake").value;
+            const lureName = document.getElementById("selectCompLure").value;
+
+            const lakeData = await fetch(`/api/lake/get/${lakeName}`).then(res => res.json());
+
+            const lureData = await fetch(`/api/lure/get/${lureName}`).then(res => res.json());
+
+            let compInfo = {
+                startDate: document.getElementById("compDateBegin").value,
+                type: typeComp,
+                maxMembers: parseFloat(document.getElementById("compMaxSize").value),
+                prize: parseFloat(document.getElementById("compPrize").value),
+                endDate: document.getElementById("compDateEnd").value,
+                lake: lakeData,
+                lure: lureData
+            };
+            await fetch('/api/competition/insert', {
+                method: 'POST',
+                headers: { 'Content-type': 'application/json' },
+                body: JSON.stringify(compInfo)
+            })
+            setShow(false);
+            window.location.reload(false);
         };
-        console.log(JSON.stringify(compInfo));
-        fetch('http://localhost:8080/api/competition/insert', {
-            method: 'POST',
-            headers: { 'Content-type': 'application/json' },
-            body: JSON.stringify(compInfo)
-        });
-        setShow(false);
+        fetchData();
     }
-
-
 
     return (
         <div>
@@ -74,7 +85,7 @@ export default function ModalWindow() {
                     <Form>
                         <Form.Group controlId="compDateBegin">
                             <Form.Label>Дата начала соревнования</Form.Label>
-                            <Form.Control type="date" />
+                            <Form.Control required type="date"/>
                         </Form.Group>
                         <Form.Group controlId="compType">
                             <Form.Label>Вид соревнования </Form.Label>
@@ -86,42 +97,32 @@ export default function ModalWindow() {
                         </Form.Group>
                         <Form.Group controlId="compMaxSize">
                             <Form.Label>Максимальное число участников</Form.Label>
-                            <Form.Control type="number" />
+                            <Form.Control required type="number"/>
                         </Form.Group>
                         <Form.Group controlId="compPrize">
                             <Form.Label>Денежный приз</Form.Label>
-                            <Form.Control type="number" />
+                            <Form.Control required type="number"/>
                         </Form.Group>
                         <Form.Group controlId="compDateEnd">
                             <Form.Label>Дата конца соревнования</Form.Label>
-                            <Form.Control type="date" />
+                            <Form.Control required type="date"/>
                         </Form.Group>
-                        <Form.Group controlId="compType">
+                        <Form.Group controlId="compLake">
                             <Form.Label>Озеро соревнования </Form.Label>
-
-                            <select className="form-control" id="exampleFormControlSelect1">
+                            <select className="form-control" id="selectCompLake">
                                 {dataLake.map(item => (
-                                <option>{item.name}</option>
-
-                              ))}
+                                    <option>{item.name}</option>
+                                ))}
                             </select>
-
                         </Form.Group>
-                        <Form.Group controlId="compType">
+                        <Form.Group controlId="compLure">
                             <Form.Label>Применяемая на соревании наживка</Form.Label>
+                            <select className="form-control" id="selectCompLure">
                             {dataLure.map(item => (
-                            <div class="form-check">
-
-  <input class="form-check-input" type="checkbox" value="" id="lureCheckDefault{item.id}"></input>
-  <label class="form-check-label" for="flexCheckDefault">
-    {item.name}
-  </label>
-</div>
-))}
-
-
+                                <option>{item.name}</option>
+                            ))}
+                            </select>
                         </Form.Group>
-
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>

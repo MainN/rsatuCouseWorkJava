@@ -30,9 +30,6 @@ public class Competition extends PanacheEntity {
     //  вознаграждение за первое место
     public Double prize;
 
-    //  количество пойманных рыб
-    public Integer fishesNumber;
-
     //  признак завершения соревнования
     public Boolean isCompleted;
 
@@ -49,19 +46,14 @@ public class Competition extends PanacheEntity {
     )
     public Collection<Member> members;
 
-    //  список используемых наживок
-    @ManyToMany
-    @JsonIgnore
-    @JoinTable(name = "competition_lure",
-            joinColumns = @JoinColumn(name = "competition_id"),
-            inverseJoinColumns = @JoinColumn(name = "lure_id")
-    )
-    public Collection<Lure> lures;
+    //  используемая наживка
+    @ManyToOne
+    @JoinColumn(name = "lure_id")
+    public Lure lure;
 
     //  озеро, где проходит соревнование
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "lake_id")
-    @JsonIgnore
     public Lake lake;
 
     public static List<Competition> findAllCompetitions(){

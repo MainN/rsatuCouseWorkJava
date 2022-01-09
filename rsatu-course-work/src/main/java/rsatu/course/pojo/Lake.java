@@ -46,6 +46,10 @@ public class Lake extends PanacheEntity {
         return findById(id);
     }
 
+    public static Lake findLakeByName(String name) {
+        return find("name", name).firstResult();
+    }
+
     public static Lake insertLake(Lake lake) {
         lake.persist();
         return lake;

@@ -5,7 +5,6 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 import javax.persistence.*;
 import javax.ws.rs.NotFoundException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -23,9 +22,9 @@ public class Lure extends PanacheEntity {
     public Double depth;
 
     //  Список соревнований, где используется наживка
-    @ManyToMany(mappedBy = "lures")
+    @OneToMany(mappedBy = "lure")
     @JsonIgnore
-    public Collection<Competition> competition;
+    public Collection<Competition> competitions;
 
     public Lure() {
     }
@@ -49,5 +48,9 @@ public class Lure extends PanacheEntity {
             throw new NotFoundException();
         }
         lure.delete();
+    }
+
+    public static Lure findLureByName(String name) {
+        return find("name", name).firstResult();
     }
 }
