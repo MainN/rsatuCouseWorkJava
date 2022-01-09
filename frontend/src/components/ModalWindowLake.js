@@ -21,7 +21,7 @@ export default function ModalWindow() {
             headers: { 'Content-type': 'application/json' },
             body: JSON.stringify(fishInfo)
         });
-
+        handleClose();
     }
 
     return (
