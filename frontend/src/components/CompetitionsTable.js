@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import { Alert } from 'react-bootstrap';
-
+import ModalCompetitonMembers from './ModalCompetitonMembers'
 export default function CompetitionsTable(props) {
 
     const selectRow = {
@@ -15,6 +15,7 @@ export default function CompetitionsTable(props) {
             setShowAddMember(true);
             setShowDownload(true);
             setShowUpload(true);
+            setShowMemberList(true);
         }
     };
 
@@ -52,8 +53,11 @@ export default function CompetitionsTable(props) {
     const [competition, setCompetition] = useState([]);
     const [showAddMember, setShowAddMember] = useState(false);
     const [showUpload, setShowUpload] = useState(false);
+    const [showMemberList, setShowMemberList] = useState(false);
+    const [showModalMembers, setShowModalMembers] = useState(false);
     const [showDownload, setShowDownload] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
+    const [members, setMembers] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -81,7 +85,7 @@ export default function CompetitionsTable(props) {
         }
     }
 
-    function GetAlert() {     
+    function GetAlert() {
         return (
             <Alert show={showAlert} variant="success">
               <Alert.Heading>Сообщение</Alert.Heading>
@@ -123,7 +127,19 @@ export default function CompetitionsTable(props) {
     const handleUploadFile = () => {
 
     }
+    const showCompetitionMembers = async () => {
+      let competitionId = competition.id;
+      const res = await fetch(
+          `api/competition/get/${competitionId}/members`,
+          {
+              headers: { "Authorization": "Bearer " + props.token }
 
+          }
+      ).then(res => res.json());
+      setMembers(res);
+
+      return;
+    }
 
 
     return <div>
@@ -131,6 +147,8 @@ export default function CompetitionsTable(props) {
         {showAddMember && (<Button onClick={handleAddMe}>Записаться на соревнование</Button>)}
         {showUpload && (<Button onClick={handleUploadFile}>Загрузить отчёт о соревновании на сервер</Button>)}
         {showDownload && (<Button onClick={handleDownloadFile}>Скачать отчёт о соревновании</Button>)}
+        {showMemberList && (<Button onClick = {showCompetitionMembers}>Просмотреть список участников</Button>)}
+        {(<ModalCompetitonMembers membersList = {members}/>)}
         {GetAlert()}
     </div>
 }
