@@ -88,19 +88,19 @@ export default function CompetitionsTable(props) {
     function GetAlert() {
         return (
             <Alert show={showAlert} variant="success">
-              <Alert.Heading>Сообщение</Alert.Heading>
-              <p>
-                Вы зарегистрированы на соревнование!
-              </p>
-              <hr />
-              <div className="d-flex justify-content-end">
-                <Button onClick={() => window.location.reload(false)} variant="outline-success">
-                  Закрыть
-                </Button>
-              </div>
+                <Alert.Heading>Сообщение</Alert.Heading>
+                <p>
+                    Вы зарегистрированы на соревнование!
+                </p>
+                <hr />
+                <div className="d-flex justify-content-end">
+                    <Button onClick={() => window.location.reload(false)} variant="outline-success">
+                        Закрыть
+                    </Button>
+                </div>
             </Alert>
         );
-      }
+    }
 
     const handleAddMe = () => {
         let competitionId = competition.id;
@@ -127,6 +127,7 @@ export default function CompetitionsTable(props) {
     const handleUploadFile = () => {
 
     }
+<<<<<<< HEAD
     const showCompetitionMembers = async () => {
       let competitionId = competition.id;
       const res = await fetch(
@@ -141,9 +142,27 @@ export default function CompetitionsTable(props) {
       return;
     }
 
+||||||| 182b768
+
+
+=======
+
+    const rowStyle = (row, rowIndex) => {
+        var ids = row.members.map(function (member) {
+            return member.id;
+        });
+        if (ids.includes(props.user.id)) {
+            return {
+                //backgroundColor: "lightgreen",
+                border: "3px solid lightgreen"
+            };
+        }
+        return null;
+    };
+>>>>>>> bd3fd7850fb1ffbe1dd9db3d12a8a334f76f7582
 
     return <div>
-        <BootstrapTable keyField='id' data={data} columns={columns} selectRow={selectRow} />
+        <BootstrapTable keyField='id' data={data} columns={columns} selectRow={selectRow} rowStyle={rowStyle} />
         {showAddMember && (<Button onClick={handleAddMe}>Записаться на соревнование</Button>)}
         {showUpload && (<Button onClick={handleUploadFile}>Загрузить отчёт о соревновании на сервер</Button>)}
         {showDownload && (<Button onClick={handleDownloadFile}>Скачать отчёт о соревновании</Button>)}

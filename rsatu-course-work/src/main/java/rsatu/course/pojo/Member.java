@@ -44,7 +44,7 @@ public class Member extends PanacheEntity {
     }
 
     public static List<Member> findMembersByIdComp(Long id) {
-        Competition competition = findById(id);
+        Competition competition = Competition.findCompetitionById(id);
         if (competition != null) {
             return (List<Member>) competition.members;
         }
