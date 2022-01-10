@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Modal, Form, Button } from 'react-bootstrap';
+import { Modal, Form, Button , Alert} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function ModalWindow() {
-    console.log("11");
+
     const [show, setShow] = useState(false);
 
     const [dataLake, setDataLake] = useState([]);
@@ -63,6 +63,62 @@ export default function ModalWindow() {
                 lake: lakeData,
                 lure: lureData
             };
+
+            if (compInfo.endDate=="")
+            {
+              alert("Укажите дату конца соревнования");
+
+              return;
+            }
+            if (compInfo.startDate>=compInfo.endDate)
+            {
+              alert("Дата окончания соревнования не может быть раньше даты начала!");
+
+              return;
+            }
+            if (compInfo.startDate=="")
+            {
+              alert("Укажите дату старта соревнования");
+
+              return;
+            }
+
+            if (isNaN(compInfo.prize))
+            {
+              alert("Укажите приз");
+
+              return;
+            }
+            if (compInfo.prize<=0)
+            {
+              alert("Приз должен быть положительным!");
+
+              return;
+            }
+            if (isNaN(compInfo.maxMembers))
+            {
+              alert("Укажите максимальное количество участников");
+
+              return;
+            }
+            if (compInfo.maxMembers<=0)
+            {
+              alert("Количество участников не может быть меньше нуля!");
+
+              return;
+            }
+            if (lakeName=="")
+            {
+              alert("Выберите или добавьте озеро!");
+
+              return;
+            }
+            if (lureName=="")
+            {
+              alert("Выберите или добавьте наживку!");
+
+              return;
+            }
             await fetch('/api/competition/insert', {
                 method: 'POST',
                 headers: { 'Content-type': 'application/json' },
@@ -71,6 +127,7 @@ export default function ModalWindow() {
             setShow(false);
             window.location.reload(false);
         };
+
         fetchData();
     }
 
@@ -127,6 +184,7 @@ export default function ModalWindow() {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={handleAddCompetition}>Создать</Button>
+
                 </Modal.Footer>
             </Modal>
         </div>
