@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal, Form, Button , Alert} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export default function ModalWindow() {
+export default function ModalWindow(props) {
 
     const [show, setShow] = useState(false);
 
@@ -12,6 +12,9 @@ export default function ModalWindow() {
     const fetchDataLake = async () => {
         const res = await fetch(
             'api/lake/get',
+            {
+                headers: { "Authorization": "Bearer " + props.token }
+            }
         );
         const json = await res.json();
         setDataLake(json);
@@ -19,6 +22,9 @@ export default function ModalWindow() {
     const fetchDataLure = async () => {
         const res = await fetch(
             'api/lure/get',
+            {
+                headers: { "Authorization": "Bearer " + props.token }
+            }
         );
         const json = await res.json();
         setDataLure(json);
@@ -50,9 +56,13 @@ export default function ModalWindow() {
             const lakeName = document.getElementById("selectCompLake").value;
             const lureName = document.getElementById("selectCompLure").value;
 
-            const lakeData = await fetch(`/api/lake/get/${lakeName}`).then(res => res.json());
+            const lakeData = await fetch(`/api/lake/get/${lakeName}`, {
+                headers: { "Authorization": "Bearer " + props.token }
+            }).then(res => res.json());
 
-            const lureData = await fetch(`/api/lure/get/${lureName}`).then(res => res.json());
+            const lureData = await fetch(`/api/lure/get/${lureName}`, {
+                headers: { "Authorization": "Bearer " + props.token }
+            }).then(res => res.json());
 
             let compInfo = {
                 startDate: document.getElementById("compDateBegin").value,
@@ -121,7 +131,7 @@ export default function ModalWindow() {
             }
             await fetch('/api/competition/insert', {
                 method: 'POST',
-                headers: { 'Content-type': 'application/json' },
+                headers: { 'Content-type': 'application/json',"Authorization": "Bearer " + props.token },
                 body: JSON.stringify(compInfo)
             })
             setShow(false);
@@ -154,15 +164,15 @@ export default function ModalWindow() {
                         </Form.Group>
                         <Form.Group controlId="compMaxSize">
                             <Form.Label>Максимальное число участников</Form.Label>
-                            <Form.Control required type="number"/>
+                            <Form.Control type="number"/>
                         </Form.Group>
                         <Form.Group controlId="compPrize">
                             <Form.Label>Денежный приз</Form.Label>
-                            <Form.Control required type="number"/>
+                            <Form.Control type="number" />
                         </Form.Group>
                         <Form.Group controlId="compDateEnd">
                             <Form.Label>Дата конца соревнования</Form.Label>
-                            <Form.Control required type="date"/>
+                            <Form.Control type="date" />
                         </Form.Group>
                         <Form.Group controlId="compLake">
                             <Form.Label>Озеро соревнования </Form.Label>
@@ -175,9 +185,9 @@ export default function ModalWindow() {
                         <Form.Group controlId="compLure">
                             <Form.Label>Применяемая на соревании наживка</Form.Label>
                             <select className="form-control" id="selectCompLure">
-                            {dataLure.map(item => (
-                                <option>{item.name}</option>
-                            ))}
+                                {dataLure.map(item => (
+                                    <option>{item.name}</option>
+                                ))}
                             </select>
                         </Form.Group>
                     </Form>

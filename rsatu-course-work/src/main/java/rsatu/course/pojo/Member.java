@@ -39,7 +39,7 @@ public class Member extends PanacheEntity {
         return listAll();
     }
 
-    public static List<Member> findMemberById(String id){
+    public static Member findMemberById(Long id){
         return findById(id);
     }
 

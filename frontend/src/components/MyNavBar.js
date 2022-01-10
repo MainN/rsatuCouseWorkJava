@@ -18,14 +18,14 @@ export default function MyNavBar(props) {
   return <nav className="navbar navbar-light bg-white">
     <div className="container-fluid">
       <a className="navbar-brand" href="/"><img src="https://www.pinclipart.com/picdir/big/44-448226_file-home-icon-svg-wikimedia-commons-free-train.png" alt="" width="40" height="40" className="d-inline-block align-text-top"></img></a>
-      <ModularHandBook />
+      <ModularHandBook token={props.token}/>
       <a className="search-brand" href="#">
         <form className="d-flex">
-          <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"></input>
+          <input className="form-control me-2" type="search" placeholder="Input ID" aria-label="Search"></input>
           <input type="image" src="https://www.freeiconspng.com/uploads/search-icon-png-21.png" alt="" width="40" height="40" />
         </form>
       </a>
-      {setShow ? <ModalCompetitionCreate /> : null}
+      {setShow ? <ModalCompetitionCreate token={props.token}/> : null}
       {props.user.email}
       <Dropdown>
         <Dropdown.Toggle variant="white" id="dropdown-basic">

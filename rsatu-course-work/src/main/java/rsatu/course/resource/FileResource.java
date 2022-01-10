@@ -1,10 +1,12 @@
 package rsatu.course.resource;
 
+import io.quarkus.security.Authenticated;
 import org.jboss.resteasy.reactive.MultipartForm;
 import rsatu.course.multipart.MultipartBody;
 import rsatu.course.pojo.FileInfo;
 
 import javax.annotation.Resource;
+import javax.annotation.security.RolesAllowed;
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -24,6 +26,7 @@ public class FileResource {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Path("/upload")
     @Transactional
+    @RolesAllowed("organizer")
     public Response uploadFile(@MultipartForm MultipartBody data) {
         if (data != null && data.file != null && data.idCompetition != null && data.originalName != null) {
             try {
@@ -49,6 +52,7 @@ public class FileResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     @Path("/download")
+    @Authenticated
     public Response downloadFileByIdComp(Long id) {
         FileInfo info = FileInfo.findFileInfoByIdComp(id);
         if (info != null) {

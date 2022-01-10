@@ -1,41 +1,50 @@
-import React, { useEffect, useState }from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, Form, Button, Dropdown } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TableFish from './TableFish'
 import TableLake from './TableLake'
 import TableLure from './TableLure'
 
-export default function ModalWindow() {
-  const [dataFish, setDataFish] = useState([]);
-  const [dataLake, setDataLake] = useState([]);
-  const [dataLure, setDataLure] = useState([]);
-  const fetchDataFish = async () => {
-      const res = await fetch(
-          'api/fish/get',
-      );
-      const json = await res.json();
-      setDataFish(json);
-  };
-  const fetchDataLake = async () => {
-      const res = await fetch(
-          'api/lake/get',
-      );
-      const json = await res.json();
-      setDataLake(json);
-  };
-  const fetchDataLure = async () => {
-      const res = await fetch(
-          'api/lure/get',
-      );
-      const json = await res.json();
-      setDataLure(json);
-  };
+export default function ModalWindow(props) {
+    const [dataFish, setDataFish] = useState([]);
+    const [dataLake, setDataLake] = useState([]);
+    const [dataLure, setDataLure] = useState([]);
+    const fetchDataFish = async () => {
+        const res = await fetch(
+            'api/fish/get',
+            {
+                headers: { "Authorization": "Bearer " + props.token }
+            }
+        );
+        const json = await res.json();
+        setDataFish(json);
+    };
+    const fetchDataLake = async () => {
+        const res = await fetch(
+            'api/lake/get',
+            {
+                headers: { "Authorization": "Bearer " + props.token }
+            }
+        );
+        const json = await res.json();
+        setDataLake(json);
+    };
+    const fetchDataLure = async () => {
+        const res = await fetch(
+            'api/lure/get',
+            {
+                headers: { "Authorization": "Bearer " + props.token }
+            }
+        );
+        const json = await res.json();
+        setDataLure(json);
+    };
 
-  function refresh(){
-    fetchDataFish();
-    fetchDataLake();
-    fetchDataLure();
-  }
+    function refresh() {
+        fetchDataFish();
+        fetchDataLake();
+        fetchDataLure();
+    }
     function ShowFish() {
         handleLureClose();
         handleLakeClose();
@@ -48,7 +57,7 @@ export default function ModalWindow() {
         handleLureClose();
         handleLakeShow();
         handleFishClose();
-          fetchDataLake();
+        fetchDataLake();
     }
     function ShowLure() {
         handleFishClose();

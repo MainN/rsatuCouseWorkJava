@@ -24,6 +24,7 @@ public class MemberResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/get")
+    @Authenticated
     public Response getMembers() {
         return Response.ok(Member.findAllMembers()).build();
     }
@@ -31,6 +32,7 @@ public class MemberResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/getByIdComp")
+    @Authenticated
     public Response getMembersByIdComp(Long id) {
         return Response.ok(Member.findMembersByIdComp(id)).build();
     }
