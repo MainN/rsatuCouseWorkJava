@@ -3,7 +3,6 @@ import { Button } from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import { Alert } from 'react-bootstrap';
 import ModalCompetitonMembers from './ModalCompetitonMembers'
-
 export default function CompetitionsTable(props) {
 
     const selectRow = {
@@ -19,7 +18,7 @@ export default function CompetitionsTable(props) {
             setShowMemberList(true);
         }
     };
-    
+
     const columns = [{
         dataField: 'id',
         text: 'ID'
@@ -128,10 +127,25 @@ export default function CompetitionsTable(props) {
     const handleUploadFile = () => {
 
     }
+<<<<<<< HEAD
+    const showCompetitionMembers = async () => {
+      let competitionId = competition.id;
+      const res = await fetch(
+          `api/competition/get/${competitionId}/members`,
+          {
+              headers: { "Authorization": "Bearer " + props.token }
+
+          }
+      ).then(res => res.json());
+      setMembers(res);
+
+      return;
+    }
+
+||||||| 182b768
 
 
-
-
+=======
 
     const rowStyle = (row, rowIndex) => {
         var ids = row.members.map(function (member) {
@@ -145,15 +159,15 @@ export default function CompetitionsTable(props) {
         }
         return null;
     };
-
+>>>>>>> bd3fd7850fb1ffbe1dd9db3d12a8a334f76f7582
 
     return <div>
         <BootstrapTable keyField='id' data={data} columns={columns} selectRow={selectRow} rowStyle={rowStyle} />
         {showAddMember && (<Button onClick={handleAddMe}>Записаться на соревнование</Button>)}
         {showUpload && (<Button onClick={handleUploadFile}>Загрузить отчёт о соревновании на сервер</Button>)}
         {showDownload && (<Button onClick={handleDownloadFile}>Скачать отчёт о соревновании</Button>)}
-
-        {showMemberList && (<ModalCompetitonMembers membersList = {[competition.id, props.token]}/>)}
+        {showMemberList && (<Button onClick = {showCompetitionMembers}>Просмотреть список участников</Button>)}
+        {(<ModalCompetitonMembers membersList = {members}/>)}
         {GetAlert()}
     </div>
 }
