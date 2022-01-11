@@ -2,8 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import { Alert } from 'react-bootstrap';
+<<<<<<< HEAD
+
+||||||| 749cc83... memberList
 import ModalCompetitonMembers from './ModalCompetitonMembers'
 
+=======
+import ModalCompetitonMembers from './ModalCompetitonMembers'
+>>>>>>> parent of 749cc83... memberList
 export default function CompetitionsTable(props) {
 
     const selectRow = {
@@ -16,10 +22,9 @@ export default function CompetitionsTable(props) {
             setShowAddMember(true);
             setShowDownload(true);
             setShowUpload(true);
-            setShowMemberList(true);
         }
     };
-    
+
     const columns = [{
         dataField: 'id',
         text: 'ID'
@@ -54,11 +59,8 @@ export default function CompetitionsTable(props) {
     const [competition, setCompetition] = useState([]);
     const [showAddMember, setShowAddMember] = useState(false);
     const [showUpload, setShowUpload] = useState(false);
-    const [showMemberList, setShowMemberList] = useState(false);
-    const [showModalMembers, setShowModalMembers] = useState(false);
     const [showDownload, setShowDownload] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
-    const [members, setMembers] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -128,11 +130,34 @@ export default function CompetitionsTable(props) {
     const handleUploadFile = () => {
 
     }
+<<<<<<< HEAD
+    const showCompetitionMembers = async () => {
+      let competitionId = competition.id;
+      const res = await fetch(
+          `api/competition/get/${competitionId}/members`,
+          {
+              headers: { "Authorization": "Bearer " + props.token }
+
+          }
+      ).then(res => res.json());
+      setMembers(res);
+
+      return;
+    }
+
+<<<<<<< HEAD
+||||||| 749cc83... memberList
 
 
 
 
+=======
+||||||| 182b768
 
+
+=======
+
+>>>>>>> parent of 749cc83... memberList
     const rowStyle = (row, rowIndex) => {
         var ids = row.members.map(function (member) {
             return member.id;
@@ -145,15 +170,28 @@ export default function CompetitionsTable(props) {
         }
         return null;
     };
+<<<<<<< HEAD
+
+||||||| 749cc83... memberList
 
 
+=======
+>>>>>>> bd3fd7850fb1ffbe1dd9db3d12a8a334f76f7582
+
+>>>>>>> parent of 749cc83... memberList
     return <div>
         <BootstrapTable keyField='id' data={data} columns={columns} selectRow={selectRow} rowStyle={rowStyle} />
         {showAddMember && (<Button onClick={handleAddMe}>Записаться на соревнование</Button>)}
         {showUpload && (<Button onClick={handleUploadFile}>Загрузить отчёт о соревновании на сервер</Button>)}
         {showDownload && (<Button onClick={handleDownloadFile}>Скачать отчёт о соревновании</Button>)}
+<<<<<<< HEAD
+||||||| 749cc83... memberList
 
         {showMemberList && (<ModalCompetitonMembers membersList = {[competition.id, props.token]}/>)}
+=======
+        {showMemberList && (<Button onClick = {showCompetitionMembers}>Просмотреть список участников</Button>)}
+        {(<ModalCompetitonMembers membersList = {members}/>)}
+>>>>>>> parent of 749cc83... memberList
         {GetAlert()}
     </div>
 }
