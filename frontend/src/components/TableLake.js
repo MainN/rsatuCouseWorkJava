@@ -22,6 +22,6 @@ export default props => (
             ))}
         </tbody>
     </table>
-    <ModalWindowLake/>
+    <ModalWindowLake token = {props.token}/>
     </div>
 )

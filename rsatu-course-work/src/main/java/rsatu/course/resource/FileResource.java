@@ -3,6 +3,7 @@ package rsatu.course.resource;
 import io.quarkus.security.Authenticated;
 import org.jboss.resteasy.reactive.MultipartForm;
 import rsatu.course.multipart.MultipartBody;
+import rsatu.course.pojo.Competition;
 import rsatu.course.pojo.FileInfo;
 
 import javax.annotation.Resource;
@@ -38,9 +39,12 @@ public class FileResource {
                 FileInfo fileInfo = new FileInfo();
                 fileInfo.name = data.idCompetition + data.originalName;
                 fileInfo.uploadDate = LocalDate.now();
-                fileInfo.idCompetition = data.idCompetition;
-                fileInfo.persist();
-                return Response.ok(fileInfo).build();
+                Competition competition = Competition.findCompetitionById(data.idCompetition);
+                if (competition != null) {
+                    fileInfo.competition = competition;
+                    fileInfo.persist();
+                    return Response.ok(fileInfo).build();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -51,7 +55,7 @@ public class FileResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    @Path("/download")
+    @Path("/download/competitions/{id}")
     @Authenticated
     public Response downloadFileByIdComp(Long id) {
         FileInfo info = FileInfo.findFileInfoByIdComp(id);

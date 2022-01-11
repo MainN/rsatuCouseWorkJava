@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export default function ModalWindow() {
+export default function ModalWindow(props) {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -18,7 +18,7 @@ export default function ModalWindow() {
         console.log(JSON.stringify(fishInfo));
         fetch('http://localhost:8080/api/lake/insert', {
             method: 'POST',
-            headers: { 'Content-type': 'application/json' },
+            headers: { 'Content-type': 'application/json', "Authorization": "Bearer " + props.token },
             body: JSON.stringify(fishInfo)
         });
         handleClose();

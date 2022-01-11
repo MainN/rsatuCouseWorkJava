@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Button } from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import { Alert } from 'react-bootstrap';
-import ModalCompetitonMembers from './ModalCompetitonMembers'
+import ModalCompetitonMembers from './ModalCompetitonMembers';
+import UploadButton from './UploadButton';
 
 export default function CompetitionsTable(props) {
+
 
     const selectRow = {
         mode: 'radio',
@@ -19,7 +21,7 @@ export default function CompetitionsTable(props) {
             setShowMemberList(true);
         }
     };
-    
+
     const columns = [{
         dataField: 'id',
         text: 'ID'
@@ -125,13 +127,6 @@ export default function CompetitionsTable(props) {
 
     }
 
-    const handleUploadFile = () => {
-
-    }
-
-
-
-
 
     const rowStyle = (row, rowIndex) => {
         var ids = row.members.map(function (member) {
@@ -146,14 +141,12 @@ export default function CompetitionsTable(props) {
         return null;
     };
 
-
     return <div>
         <BootstrapTable keyField='id' data={data} columns={columns} selectRow={selectRow} rowStyle={rowStyle} />
-        {showAddMember && (<Button onClick={handleAddMe}>Записаться на соревнование</Button>)}
-        {showUpload && (<Button onClick={handleUploadFile}>Загрузить отчёт о соревновании на сервер</Button>)}
-        {showDownload && (<Button onClick={handleDownloadFile}>Скачать отчёт о соревновании</Button>)}
-
-        {showMemberList && (<ModalCompetitonMembers membersList = {[competition.id, props.token]}/>)}
+        {showAddMember && (<div className='m-2'><Button onClick={handleAddMe}>Записаться на соревнование</Button></div>)}
+        {showUpload && (<UploadButton competitionId = {competition.id} token = {props.token}/>)}
+        {showDownload && (<div className='m-2'><Button onClick={handleDownloadFile}>Скачать отчёт о соревновании</Button></div>)}
+        {showMemberList && (<div className='m-2'><ModalCompetitonMembers membersList={[competition.id, props.token]} /></div>)}
         {GetAlert()}
     </div>
 }

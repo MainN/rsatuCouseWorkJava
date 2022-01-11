@@ -56,6 +56,11 @@ public class Competition extends PanacheEntity {
     @JoinColumn(name = "lake_id")
     public Lake lake;
 
+    //  отчет
+    @OneToOne
+    @JoinColumn(name = "report_id")
+    public FileInfo fileInfo;
+
     public static List<Competition> findAllCompetitions(){
         return listAll();
     }
