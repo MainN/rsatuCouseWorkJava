@@ -16,7 +16,7 @@ export default function ModalWindow(props) {
           name: document.getElementById("lakeName").value,
         };
         console.log(JSON.stringify(fishInfo));
-        fetch('http://localhost:8080/api/lake/insert', {
+        fetch('/api/lake/insert', {
             method: 'POST',
             headers: { 'Content-type': 'application/json', "Authorization": "Bearer " + props.token },
             body: JSON.stringify(fishInfo)

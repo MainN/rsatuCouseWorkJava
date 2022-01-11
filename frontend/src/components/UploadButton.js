@@ -4,7 +4,6 @@ import { Button } from 'react-bootstrap';
 export default function UploadButton(props) {
 
     const inputRef = useRef(null);
-    const [uploadedStatus, setUploadedStatus] = useState(null);
 
     const handleInputFile = () => {
         inputRef.current?.click();
@@ -19,8 +18,10 @@ export default function UploadButton(props) {
             method: 'post',
             headers: { "Authorization": "Bearer " + props.token },
             body: data
-        }).then(
-            setUploadedStatus("Загружено")
+        }).then((response) => {
+            console.log(response.json);
+            props.updateData();
+        }
         );
     }
 
@@ -32,8 +33,7 @@ export default function UploadButton(props) {
     return (
         <div className='m-2'>
             <input ref={inputRef} className="d-none" type="file" onChange={handleUploadFile} />
-            <Button className={`btn btn-${uploadedStatus ? "success" : "primary"
-                }`} onClick={handleInputFile}>{uploadedStatus ? uploadedStatus : "Загрузить отчёт о соревновании"}</Button>
+            <Button className={`btn btn-primary`} onClick={handleInputFile}>Загрузить отчёт о соревновании</Button>
         </div>
     );
 }

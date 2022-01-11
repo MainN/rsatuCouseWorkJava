@@ -4,6 +4,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { Alert } from 'react-bootstrap';
 import ModalCompetitonMembers from './ModalCompetitonMembers';
 import UploadButton from './UploadButton';
+import moment from 'moment'
 
 export default function CompetitionsTable(props) {
 
@@ -15,14 +16,28 @@ export default function CompetitionsTable(props) {
         onSelect: (row, isSelect, rowIndex, e) => {
             console.log(row);
             setCompetition(row);
-            setShowAddMember(true);
-            setShowDownload(true);
-            setShowUpload(true);
+            if (canAddMember(row)) {
+                setShowAddMember(true);
+            } else {
+                setShowAddMember(false);
+            }
+            if (row.fileInfo != null) {
+                setShowDownload(true);
+                setShowUpload(false);
+            } else {
+                setShowDownload(false);
+                setShowUpload(true);
+            }
             setShowMemberList(true);
         }
     };
 
     const columns = [{
+        dataField: 'isCompleted',
+        text: 'Статус',
+        formatter: (value, row) => { return getStatus(value, row)}
+    },
+    {
         dataField: 'id',
         text: 'ID'
     }, {
@@ -62,20 +77,54 @@ export default function CompetitionsTable(props) {
     const [showAlert, setShowAlert] = useState(false);
     const [members, setMembers] = useState([]);
 
+
     useEffect(() => {
-        const fetchData = async () => {
-            const res = await fetch(
-                'api/competition/get',
-                {
-                    headers: { "Authorization": "Bearer " + props.token }
-                }
-            );
-            const json = await res.json();
-            console.log(json);
-            setData(json);
-        };
         fetchData();
     }, []);
+
+    const fetchData = async () => {
+        const res = await fetch(
+            'api/competition/get',
+            {
+                headers: { "Authorization": "Bearer " + props.token }
+            }
+        );
+        const json = await res.json();
+        console.log(json);
+        setData(json);
+    };
+
+    const updateData = () => {
+        fetchData();
+        setShowDownload(true);
+        setShowUpload(false);
+    }
+
+    function getStatus(value, row) {
+        if (value) 
+            return "Завершен";
+        else {
+            let currDate = moment();
+            var day = moment(row.startDate);
+            console.log(day);
+            if (currDate >= moment(row.startDate) && currDate <=  moment(row.endDate)) {
+                return "Идёт";
+            } else {
+                return "Не начался"
+            }
+        }
+    }
+
+    function canAddMember(row) {
+        var ids = row.members.map(function (member) {
+            return member.id;
+        });
+
+        if (row.isCompleted || row.maxMembers < row.members.length ||
+            ids.includes(props.user.id)) {
+            return false;
+        } else return true;
+    }
 
     function getFormatedCompType(type) {
         switch (type) {
@@ -97,7 +146,7 @@ export default function CompetitionsTable(props) {
                 </p>
                 <hr />
                 <div className="d-flex justify-content-end">
-                    <Button onClick={() => window.location.reload(false)} variant="outline-success">
+                    <Button onClick={() => setShowAlert(false)} variant="outline-success">
                         Закрыть
                     </Button>
                 </div>
@@ -119,6 +168,8 @@ export default function CompetitionsTable(props) {
             })
         }).then((result) => {
             console.log(result);
+            fetchData();
+            setShowAddMember(false);
             setShowAlert(true);
         });
     }
@@ -144,7 +195,7 @@ export default function CompetitionsTable(props) {
     return <div>
         <BootstrapTable keyField='id' data={data} columns={columns} selectRow={selectRow} rowStyle={rowStyle} />
         {showAddMember && (<div className='m-2'><Button onClick={handleAddMe}>Записаться на соревнование</Button></div>)}
-        {showUpload && (<UploadButton competitionId = {competition.id} token = {props.token}/>)}
+        {showUpload && (<UploadButton competitionId={competition.id} token={props.token} updateData={updateData} />)}
         {showDownload && (<div className='m-2'><Button onClick={handleDownloadFile}>Скачать отчёт о соревновании</Button></div>)}
         {showMemberList && (<div className='m-2'><ModalCompetitonMembers membersList={[competition.id, props.token]} /></div>)}
         {GetAlert()}

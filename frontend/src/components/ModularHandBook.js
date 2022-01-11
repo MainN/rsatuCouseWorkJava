@@ -107,7 +107,7 @@ export default function ModalWindow(props) {
                                 <button className="dropdown-item" type="button" onClick={ShowLake}>Озёра</button>
                                 <button className="dropdown-item" type="button" onClick={ShowLure} >Наживки</button>
                             </Dropdown.Menu>
-                        </Dropdown> <button type="button" className="btn btn-outline-primary" onClick={refresh}> <img src="https://www.freeiconspng.com/thumbs/reload-icon/arrow-refresh-reload-icon-29.png" alt="" width="40" height="40"></img> </button>
+                        </Dropdown> <button type="button" onClick={refresh}> <img src="https://www.freeiconspng.com/thumbs/reload-icon/arrow-refresh-reload-icon-29.png" alt="" width="40" height="40"></img> </button>
 
                         {fishShow ? <TableFish data={dataFish} token={props.token}/> : null}
                         {lakeShow ? <TableLake data={dataLake} token={props.token}/> : null}

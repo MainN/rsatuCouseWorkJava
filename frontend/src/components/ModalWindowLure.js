@@ -16,7 +16,7 @@ export default function ModalWindow(props) {
           name: document.getElementById("lureName").value,
         };
         console.log(JSON.stringify(fishInfo));
-        fetch('http://localhost:8080/api/lure/insert', {
+        fetch('/api/lure/insert', {
             method: 'POST',
             headers: { 'Content-type': 'application/json', "Authorization": "Bearer " + props.token },
             body: JSON.stringify(fishInfo)

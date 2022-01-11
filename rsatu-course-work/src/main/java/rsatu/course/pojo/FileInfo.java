@@ -3,13 +3,8 @@ package rsatu.course.pojo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import java.io.File;
+import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Collection;
 
 /**
  * Сущность Информация о файле с итогами соревнования
@@ -23,11 +18,12 @@ public class FileInfo extends PanacheEntity {
     public LocalDate uploadDate;
 
     // список соревнований, проходящих на озере
-    @OneToOne(mappedBy = "fileInfo")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "competition_id")
     @JsonIgnore
     public Competition competition;
 
     public static FileInfo findFileInfoByIdComp(Long id) {
-        return (FileInfo) find("idCompetition", id).firstResult();
+        return (FileInfo) find("competition.id", id).firstResult();
     }
 }

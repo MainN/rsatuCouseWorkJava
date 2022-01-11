@@ -9,10 +9,7 @@ import rsatu.course.pojo.FileInfo;
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 import javax.transaction.Transactional;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.*;
@@ -42,6 +39,7 @@ public class FileResource {
                 Competition competition = Competition.findCompetitionById(data.idCompetition);
                 if (competition != null) {
                     fileInfo.competition = competition;
+                    competition.isCompleted = true;
                     fileInfo.persist();
                     return Response.ok(fileInfo).build();
                 }
@@ -52,11 +50,11 @@ public class FileResource {
         return Response.serverError().build();
     }
 
-    @POST
+    @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     @Path("/download/competitions/{id}")
-    @Authenticated
+    //@Authenticated
     public Response downloadFileByIdComp(Long id) {
         FileInfo info = FileInfo.findFileInfoByIdComp(id);
         if (info != null) {

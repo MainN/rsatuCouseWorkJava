@@ -16,7 +16,7 @@ export default function ModalWindow(props) {
             weight: parseFloat(document.getElementById("fishWeight").value),
         };
         console.log(JSON.stringify(fishInfo));
-        fetch('http://localhost:8080/api/fish/insert', {
+        fetch('/api/fish/insert', {
             method: 'POST',
             headers: { 'Content-type': 'application/json', "Authorization": "Bearer " + props.token },
             body: JSON.stringify(fishInfo)

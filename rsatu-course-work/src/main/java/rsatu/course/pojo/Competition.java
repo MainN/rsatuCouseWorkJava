@@ -2,8 +2,10 @@ package rsatu.course.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import org.hibernate.annotations.ColumnDefault;
 import rsatu.course.enums.Type;
 
+import javax.enterprise.inject.Default;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
@@ -57,8 +59,7 @@ public class Competition extends PanacheEntity {
     public Lake lake;
 
     //  отчет
-    @OneToOne
-    @JoinColumn(name = "report_id")
+    @OneToOne(mappedBy = "competition", cascade = CascadeType.ALL)
     public FileInfo fileInfo;
 
     public static List<Competition> findAllCompetitions(){

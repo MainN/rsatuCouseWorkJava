@@ -67,6 +67,7 @@ export default function ModalWindow(props) {
             let compInfo = {
                 startDate: document.getElementById("compDateBegin").value,
                 type: typeComp,
+                isCompleted:false,
                 maxMembers: parseFloat(document.getElementById("compMaxSize").value),
                 prize: parseFloat(document.getElementById("compPrize").value),
                 endDate: document.getElementById("compDateEnd").value,
