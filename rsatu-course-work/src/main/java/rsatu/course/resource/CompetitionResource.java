@@ -90,8 +90,20 @@ public class CompetitionResource {
     @Consumes("application/json")
     @Produces("application/json")
     @Path("/get/{idCompetition}/members")
+<<<<<<< HEAD
+    @Authenticated
+    public Response getMembersByIdComp(Long idCompetition) {
+return Response.ok(Member.findMembersByIdComp(idCompetition)).build();
+}
+||||||| 182b768
     @Authenticated
     public List<Member> getMembersByIdComp(Long id) {
         return Member.findMembersByIdComp(id);
     }
+=======
+    //@Authenticated
+    public Response getMembersByIdComp(Long idCompetition) {
+        return Response.ok(Member.findMembersByIdComp(idCompetition)).build();
+    }
+>>>>>>> bd3fd7850fb1ffbe1dd9db3d12a8a334f76f7582
 }

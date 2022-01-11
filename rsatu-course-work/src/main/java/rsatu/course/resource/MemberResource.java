@@ -67,7 +67,7 @@ public class MemberResource {
             return user;
         }
     }
-
+    
     /** Возвращает пользователя из базы из токена
      *
      */
@@ -80,4 +80,5 @@ public class MemberResource {
     public Response findCurUser() {
         return Response.ok(getMember()).build();
     }
+    
 }
