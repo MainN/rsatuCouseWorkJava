@@ -35,34 +35,42 @@ export default function CompetitionsTable(props) {
     const columns = [{
         dataField: 'isCompleted',
         text: 'Статус',
-        formatter: (value, row) => { return getStatus(value, row)}
+        sort: true,
+        formatter: (value, row) => { return getStatus(value, row) }
     },
     {
         dataField: 'id',
-        text: 'ID'
+        text: 'ID',
+        sort: true
     }, {
         dataField: 'startDate',
-        text: 'Дата начала'
+        text: 'Дата начала',
+        sort: true
     }, {
         dataField: 'members.length',
         text: 'Тек./Макс. кол-во участников',
         formatter: (value, row) => { return `${value}/${row.maxMembers}` }
     }, {
         dataField: 'prize',
-        text: 'Приз'
+        text: 'Приз',
+        sort: true
     }, {
         dataField: 'type',
         text: 'Вид соревнования',
+        sort: true,
         formatter: (cell) => { return getFormatedCompType(cell) }
     }, {
         dataField: 'lake.name',
-        text: 'Озеро'
+        text: 'Озеро',
+        sort: true
     }, {
         dataField: 'lure.name',
-        text: 'Наживка'
+        text: 'Наживка',
+        sort: true
     }, {
         dataField: 'endDate',
-        text: 'Дата окончания'
+        text: 'Дата окончания',
+        sort: true
     }
     ];
 
@@ -98,16 +106,17 @@ export default function CompetitionsTable(props) {
         fetchData();
         setShowDownload(true);
         setShowUpload(false);
+        setShowAddMember(false);
     }
 
     function getStatus(value, row) {
-        if (value) 
+        if (value)
             return "Завершен";
         else {
             let currDate = moment();
             var day = moment(row.startDate);
             console.log(day);
-            if (currDate >= moment(row.startDate) && currDate <=  moment(row.endDate)) {
+            if (currDate >= moment(row.startDate) && currDate <= moment(row.endDate)) {
                 return "Идёт";
             } else {
                 return "Не начался"
@@ -175,7 +184,20 @@ export default function CompetitionsTable(props) {
     }
 
     const handleDownloadFile = () => {
-
+        fetch(`api/file/download/competitions/${competition.id}`,
+            {
+                headers: { "Authorization": "Bearer " + props.token }
+            }).then(response => {
+                const filename = response.headers.get('Content-Disposition').split('filename=')[1];
+                response.blob().then(blob => {
+                    let url = window.URL.createObjectURL(blob);
+                    let a = document.createElement('a');
+                    a.href = url;
+                    a.download = filename;
+                    a.click();
+                    alert("Протокол соревнования загружен!");
+                });
+            })
     }
 
 
