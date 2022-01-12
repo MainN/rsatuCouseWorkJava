@@ -33,7 +33,7 @@ export default function MyNavBar(props) {
           <img src="http://cdn.onlinewebfonts.com/svg/download_415638.png" alt="" width="40" height="40"></img>
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          <ProfileModal />
+          <ProfileModal user = {props.user} token = {props.token}/>
           <p>
           </p>
           <button type="button" className="btn btn-outline-primary" onClick={handleLogOut}> Выход </button>

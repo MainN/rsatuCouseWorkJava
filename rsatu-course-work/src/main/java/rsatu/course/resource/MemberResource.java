@@ -29,14 +29,6 @@ public class MemberResource {
         return Response.ok(Member.findAllMembers()).build();
     }
 
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/getByIdComp")
-    @Authenticated
-    public Response getMembersByIdComp(Long id) {
-        return Response.ok(Member.findMembersByIdComp(id)).build();
-    }
-
     @Transactional
     @Authenticated
     public Member getMember() {
@@ -80,5 +72,19 @@ public class MemberResource {
     public Response findCurUser() {
         return Response.ok(getMember()).build();
     }
-    
+
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/get/{id}")
+    @Authenticated
+    @Transactional
+    public Response updateMember(@PathParam("id") Long id, Member member) {
+        Member curMember = Member.findMemberById(id);
+        if (curMember == null) return Response.serverError().build();
+        curMember.fio = member.fio;
+        curMember.birthDate = member.birthDate;
+        curMember.sex = member.sex;
+        return Response.ok(curMember).build();
+    }
 }

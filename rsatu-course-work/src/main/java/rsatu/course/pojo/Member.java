@@ -3,6 +3,7 @@ package rsatu.course.pojo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import rsatu.course.enums.Role;
+import rsatu.course.enums.Sex;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,9 +18,10 @@ import java.util.List;
 @Table(name = "member")
 public class Member extends PanacheEntity {
     //    Дата рождения
+    @Temporal(TemporalType.DATE)
     public Date birthDate;
     //    Пол
-    public String sex;
+    public Sex sex;
     //    ФИО
     public String fio;
     //    Роль
