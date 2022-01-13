@@ -144,7 +144,7 @@ export default function ModalWindow(props) {
 
     return (
         <div>
-            <button type="button" className="btn btn-outline-primary" onClick={handleShow}> <img src="https://pic.onlinewebfonts.com/svg/img_360305.png" alt="" width="40" height="40"></img> </button>
+            <button type="button" className="btn btn-outline-primary" onClick={handleShow} disabled = {(props.user.role != "ORGANIZER")? "disabled" : ""}> <img src="https://pic.onlinewebfonts.com/svg/img_360305.png" alt="" width="40" height="40"></img> </button>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Создание соревнования</Modal.Title>

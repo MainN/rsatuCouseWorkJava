@@ -94,4 +94,14 @@ public class CompetitionResource {
     public Response getMembersByIdComp(Long idCompetition) {
         return Response.ok(Member.findMembersByIdComp(idCompetition)).build();
     }
+
+    @Transactional
+    @GET
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("/get/{id}")
+    @Authenticated
+    public Response getCompetitionById(Long id) {
+        return Response.ok(Competition.findCompetitionById(id)).build();
+    }
 }

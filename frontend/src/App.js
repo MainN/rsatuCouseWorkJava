@@ -7,7 +7,11 @@ class App extends Component {
   constructor(props) {
     // highlight-range{3}
     super(props);
-    this.state = { keycloak: null, authenticated: false, user: []};
+    this.state = { keycloak: null, authenticated: false, user: [], filter: null};
+  }
+
+  updateFilter = (value) => {
+    this.setState({ filter: value })
   }
 
   componentDidMount() {
@@ -43,9 +47,8 @@ class App extends Component {
       if (this.state.authenticated) {
         return (
           <div className="container">
-            <MyNavBar user={this.state.user} token={this.state.keycloak.token} keycloak={this.state.keycloak} />
-            <CompetitionsTable user={this.state.user} token={this.state.keycloak.token} />
-
+            <MyNavBar user={this.state.user} token={this.state.keycloak.token} keycloak={this.state.keycloak} filter={this.updateFilter}/>
+            <CompetitionsTable user={this.state.user} token={this.state.keycloak.token} filter={this.state.filter}/>
           </div>
         );
       }
