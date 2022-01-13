@@ -25,7 +25,7 @@ export default function MyNavBar(props) {
       <a className="search-brand" href="#">
         <form className="d-flex">
           <input className="form-control me-2" type="search" placeholder="Input ID" aria-label="Search" id="inputField"></input>
-          <button type="button" img src="https://www.freeiconspng.com/uploads/search-icon-png-21.png" alt="" width="40" height="40" onClick={handleFillFilter}/>
+          <input type="image" img src="https://www.freeiconspng.com/uploads/search-icon-png-21.png" alt="" width="40" height="40" onClick={handleFillFilter}/>
         </form>
       </a>
       {setShow ? <ModalCompetitionCreate token={props.token} user = {props.user}/> : null}
