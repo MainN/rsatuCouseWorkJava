@@ -24,7 +24,7 @@ export default props => (
                 ))}
             </tbody>
         </table>
-        <ModalWindow token={props.token}/>
+        <ModalWindow role={ props.role} token={props.token}/>
 
     </div>
 )

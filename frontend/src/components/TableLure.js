@@ -23,6 +23,6 @@ export default props => (
         </tbody>
     </table>
 
-    <ModalWindowLure token = {props.token}/>
+    <ModalWindowLure role={props.role} token = {props.token}/>
     </div>
 )

@@ -6,7 +6,7 @@ export default props => (
     <table className="table">
         <thead>
             <tr>
-                
+
                 <th>Площадь</th>
                 <th>Глубина</th>
                 <th>Название</th>
@@ -22,6 +22,6 @@ export default props => (
             ))}
         </tbody>
     </table>
-    <ModalWindowLake token = {props.token}/>
+    <ModalWindowLake role={props.role} token = {props.token}/>
     </div>
 )

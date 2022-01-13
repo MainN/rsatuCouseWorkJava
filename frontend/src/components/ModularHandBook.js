@@ -89,7 +89,7 @@ export default function ModalWindow(props) {
 
     return (
         <div>
-            <button type="button" className="btn btn-outline-primary" onClick={handleShow} disabled = {(props.user.role != "ADMIN")? "disabled" : ""}> <img src="https://www.pinclipart.com/picdir/big/558-5584488_literature-icon-free-download-book-icon-png-white.png" alt="" width="40" height="40"></img> </button>
+            <button type="button" className="btn btn-outline-primary" onClick={handleShow} > <img src="https://www.pinclipart.com/picdir/big/558-5584488_literature-icon-free-download-book-icon-png-white.png" alt="" width="40" height="40"></img> </button>
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
@@ -109,9 +109,9 @@ export default function ModalWindow(props) {
                             </Dropdown.Menu>
                         </Dropdown> <button type="button" onClick={refresh}> <img src="https://www.freeiconspng.com/thumbs/reload-icon/arrow-refresh-reload-icon-29.png" alt="" width="40" height="40"></img> </button>
 
-                        {fishShow ? <TableFish data={dataFish} token={props.token}/> : null}
-                        {lakeShow ? <TableLake data={dataLake} token={props.token}/> : null}
-                        {lureShow ? <TableLure data={dataLure} token={props.token}/> : null}
+                        {fishShow ? <TableFish data={dataFish} role= {props.user.role} token={props.token}/> : null}
+                        {lakeShow ? <TableLake data={dataLake} role= {props.user.role} token={props.token}/> : null}
+                        {lureShow ? <TableLure data={dataLure} role= {props.user.role} token={props.token}/> : null}
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
