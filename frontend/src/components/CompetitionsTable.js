@@ -91,12 +91,22 @@ export default function CompetitionsTable(props) {
     }, []);
 
     const fetchData = async () => {
-        const res = await fetch(
-            'api/competition/get',
-            {
-                headers: { "Authorization": "Bearer " + props.token }
-            }
-        );
+        let res = null;
+        if (props.filter == "" || props.filter == null) {
+            res = await fetch(
+                'api/competition/get',
+                {
+                    headers: { "Authorization": "Bearer " + props.token }
+                }
+            );
+        } else {
+            res = await fetch(
+                `api/competition/${props.filter}`,
+                {
+                    headers: { "Authorization": "Bearer " + props.token }
+                }
+            );
+        }
         const json = await res.json();
         console.log(json);
         setData(json);
