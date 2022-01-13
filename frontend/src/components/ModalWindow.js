@@ -7,7 +7,7 @@ export default function ModalWindow(props) {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
+    const check = () => console.log(props.role);
     const handleAddFish = () => {
         let fishInfo = {
             name: document.getElementById("fishName").value,
@@ -22,11 +22,12 @@ export default function ModalWindow(props) {
             body: JSON.stringify(fishInfo)
         });
         handleClose();
+
     }
 
     return (
         <div>
-            <Button variant="primary" onClick={handleShow} >
+            <Button variant="primary" onClick={handleShow} disabled = {(props.role != "ADMIN")? "disabled" : ""}>
                 Добавить рыбу</Button>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>

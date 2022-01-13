@@ -26,7 +26,7 @@ export default function ModalWindow(props) {
 
     return (
         <div>
-            <Button variant="primary" onClick={handleShow} >
+            <Button variant="primary" onClick={handleShow} disabled = {(props.role != "ADMIN")? "disabled" : ""}>
                 Добавить озеро</Button>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
